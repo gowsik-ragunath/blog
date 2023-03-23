@@ -120,7 +120,7 @@ In this case
 
 {% endhighlight %}
 
-then enter the password(from the credentials) then in psql console run the following command,
+Enter the password(from the credentials) then in psql console run the following command,
 
 {% highlight bash %}
 
