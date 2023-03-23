@@ -26,9 +26,9 @@ pg_dump: aborting because of server version mismatch
 
 ### Workaround
 
-To fix this mismatch issue instead of running the pg_dump and pg_restore in the postgres app we can take a DB dump and restore it from the local environment.
+As a workaround to fix this version mismatch issue, instead of running the pg_dump and pg_restore in the postgres app we can take a DB dump and restore it to Fly DB from the local environment.
 
-In the below steps, I explained how to restore the DB dump from the local machine
+In the below steps, I explained how to restore the DB dump in Fly database.
 
 If you already have a Postgres app in Fly.io skip to [Step 2](#2-connect-to-remote-postgres-db)
 
