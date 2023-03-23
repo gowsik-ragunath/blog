@@ -2,27 +2,59 @@
 layout: post
 title: Fix PG version mismatch issue in fly.io while creating a dump or restoring a DB
 description: Fix PG version mismatch issue in fly.io while creating a dump or restoring a DB
-tags: [web]
+tags: [web, devops]
 ---
 
-### 1. Create Postgres DB
+### Problem
+
+Restoring Postgres database in Fly.io is super easy we just need to run the below command in the fly console as mentioned in fly.io [Heroku migration documentation](https://fly.io/docs/rails/getting-started/migrate-from-heroku/#transfer-the-database)
+
+{% highlight bash %}
+
+pg_dump -Fc --no-acl --no-owner -d $HEROKU_DATABASE_URL | pg_restore --verbose --clean --no-acl --no-owner -d $DATABASE_URL
+
+{% endhighlight %}
+
+but sometimes we might get a version miss match error as the fly DB postgres version and the postgres DB version that host in the other service is different.
+
+{% highlight bash %}
+
+pg_dump: server version: 13.10; pg_dump version: 14.7
+pg_dump: aborting because of server version mismatch
+
+{% endhighlight %}
+
+### Workaround
+
+To fix this mismatch issue instead of running the pg_dump and pg_restore in the postgres app we can take a DB dump and restore it from the local environment.
+
+In the below steps, I explained how to restore the DB dump from the local machine
+
+If you already have a Postgres app in Fly.io skip to [Step 2](#2-connect-to-remote-postgres-db)
+
+#### 1. Create Postgres DB
 
 Create a postgres DB in fly by running the following command,
 
-```bash
+{% highlight bash %}
+
 fly pg create --name <app name>
-```
 
-For e.g.,
+{% endhighlight %}
 
-```bash
+E.g.,
+
+{% highlight bash %}
+
 fly pg create --name myapp-db
-```
+
+{% endhighlight %}
 
 
 Output be something like this,
 
-```
+{% highlight bash %}
+
 Creating postgres cluster myapp-db in organization personal
 Creating app...
 Setting secrets...
@@ -47,94 +79,119 @@ Connect to postgres
 Any app within the Brad Gessler organization can connect to this Postgres using the above connection string
 
 Now that you've set up Postgres, here's what you need to understand: https://fly.io/docs/postgres/getting-started/what-you-should-know/
-```
+
+{% endhighlight %}
 
 Store the Postgres cluster credentials somewhere, we will use these credentials later.
 
-### 2. Connect to remote Postgres DB
+#### 2. Connect to remote Postgres DB
 
-```bash
+{% highlight bash %}
+
 flyctl proxy 5434:5432 -a <DB app name>
-```
 
-in this case
+{% endhighlight %}
 
-```bash
+In this case
+
+{% highlight bash %}
+
 flyctl proxy 5434:5432 -a myapp-db
-```
+
+{% endhighlight %}
 
 This will establish a proxy forwarding to the localhost in port 5434.
 
-### Create a new DB
+#### 3. Create a new DB
 
 In a new terminal run the following command,
 
-```bash
+{% highlight bash %}
+
   psql -h localhost -p 5434 -U <User name from credential>
-```
 
-in this case
+{% endhighlight %}
 
-```bash
+In this case
+
+{% highlight bash %}
+
   psql -h localhost -p 5434 -U postgres
-```
+
+{% endhighlight %}
 
 then enter the password(from the credentials) then in psql console run the following command,
 
-```bash
+{% highlight bash %}
+
 CREATE DATABASE <web app name>;
-```
 
-for e.g.,
-
-```bash
-CREATE DATABASE myapp;
-```
-
-This will create the DB and ensure that the DB name is the same as the app name.
-
-### Restore Dump to DB
-
-Open a terminal in the path where you have the PG dump file and run the following command,
-
-```bash
-pg_restore -v -d postgresql://<user>:<password@localhost:5434/<database_name> <  <pg dump file path>
-```
+{% endhighlight %}
 
 E.g.,
 
-```bash
+{% highlight bash %}
+
+CREATE DATABASE myapp;
+
+{% endhighlight %}
+
+This will create the DB and ensure that the DB name is the same as the app name.
+
+#### 4. Restore Dump to DB
+
+Open a terminal in the path where you have the PG dump file and run the following command,
+
+{% highlight bash %}
+
+pg_restore -v -d postgresql://<user>:<password@localhost:5434/<database_name> <  <pg dump file path>
+
+{% endhighlight %}
+
+E.g.,
+
+{% highlight bash %}
+
 pg_restore -v -d postgresql://postgres:***************@localhost:5434/myapp < filename.dump
-```
+
+{% endhighlight %}
 
 This will restore the records in the DB.
 
-### Attaching a Fly app
+#### 5. Attaching a Fly app
 
 Ensure that the fly web app doesn't have a secret key with the name `DATABASE_URL`, if a secret with a name exists then unset that secret by running the following command,
 
-```bash
+{% highlight bash %}
+
  fly secrets unset DATABASE_URL -a <web app name>
-```
+
+{% endhighlight %}
 
 in this case,
 
-```bash
+{% highlight bash %}
+
  fly secrets unset DATABASE_URL -a myapp
-```
+
+{% endhighlight %}
 
 This will remove the `DATABASE_URL` secret from the web app.
 
-To attach the fly app to postgress cluster run the following command,
+To attach the fly app to postgres cluster run the following command,
 
-```bash
+{% highlight bash %}
+
 flyctl postgres attach <DB app name> --app <web app name>
-```
+
+{% endhighlight %}
 
 in this case,
 
-```bash
+{% highlight bash %}
+
 flyctl postgres attach myapp-db --app myapp
-```
+
+{% endhighlight %}
 
 Running this command will add `DATABASE_URL` secret to the web app.
