@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Fix PG version mismatch issue in fly.io while creating a dump or restoring a DB
+title: Fix PG version mismatch issue in fly.io
 description: Fix PG version mismatch issue in fly.io while creating a dump or restoring a DB
 tags: [web, devops]
 ---
