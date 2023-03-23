@@ -104,6 +104,8 @@ This will establish a proxy forwarding to the localhost in port 5434.
 
 #### 3. Create a new DB
 
+*Skip this step if Postgres cluster already has database with app's name.*
+
 In a new terminal run the following command,
 
 {% highlight bash %}
@@ -159,6 +161,8 @@ pg_restore -v -d postgresql://postgres:***************@localhost:5434/myapp < fi
 This will restore the records in the DB.
 
 #### 5. Attaching a Fly app
+
+*Skip this step if the app is attached to Postgres cluster.*
 
 Ensure that the fly web app doesn't have a secret key with the name `DATABASE_URL`, if a secret with a name exists then unset that secret by running the following command,
 
