@@ -199,3 +199,5 @@ flyctl postgres attach myapp-db --app myapp
 {% endhighlight %}
 
 Running this command will add `DATABASE_URL` secret to the web app.
+
+Now when you access the site you see all the data there and you can also verify the records from rails console. 
