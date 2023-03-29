@@ -15,7 +15,7 @@ pg_dump -Fc --no-acl --no-owner -d $HEROKU_DATABASE_URL | pg_restore --verbose -
 
 {% endhighlight %}
 
-but sometimes we might get a version miss match error as the fly DB postgres version and the postgres DB version that host in the other service is different.
+but sometimes we might get a version mismatch error as the fly DB postgres version and the postgres DB version that host in the other service is different.
 
 {% highlight bash %}
 
