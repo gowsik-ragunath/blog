@@ -2,7 +2,7 @@
 layout: post
 title: Deploy Jekyll blog to AWS Amplify
 description: Deploy a static site like a Jekyll blog to AWS Amplify with full fledged CI/CD pipeline and app preview.
-tags: [jekyll, devops, amplify]
+tags: [jekyll, devops, amplify, rubyweekly]
 ---
 
 This post is also published in [blog.saeloun.com](https://blog.saeloun.com/2023/05/10/deploy-jekyll-blog-to-aws-amplify/) and featured in [Ruby Weekly issue #653](https://rubyweekly.com/issues/653).
