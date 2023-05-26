@@ -77,7 +77,7 @@ exclude:
 plugins:
   - jekyll-assets
   - jekyll-paginate
-  - jekyll-sitemap
+  # - jekyll-sitemap
   - jemoji
 paginate_path: /posts/page/:num/
 permalink: posts/:slug
