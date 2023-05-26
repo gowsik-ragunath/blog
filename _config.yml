@@ -2,7 +2,7 @@
 
 blog_theme: dark # Or use dark
 name: Gowsik
-paginate: 25
+paginate: 10
 url: https://blog.gowsik.info
 
 
