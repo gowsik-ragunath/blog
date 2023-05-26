@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: https://blog.gowsik.info/sitemap.xml
+Sitemap: https://blog.gowsik.info/sitemap_index.xml
