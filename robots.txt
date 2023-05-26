@@ -1,7 +1,4 @@
-User-agent: Googlebot
-Disallow: /nogooglebot/
-
 User-agent: *
-Allow: /
+Disallow: 
 
 Sitemap: https://blog.gowsik.info/sitemap.xml
