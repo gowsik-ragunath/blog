@@ -1,10 +1,7 @@
 ---
 layout: post
 title: Integrate OpenAI API in Ruby applications
-date: 2023-05-22
 description: We can integrate OpenAI API in a ruby application by using ruby-openai gem which allows us to build an app with all the ChatGPT 
-categories: openai-api chat-gpt ai
-author: gowsik
 tags: [ruby, openai, chatgpt, ai]
 ---
 
