@@ -5,7 +5,7 @@ description: Integrate Replicate in Rails application and effortlessly run vario
 tags: [rails, rubyweekly, ai]
 ---
 
-This post is also published in [blog.saeloun.com](https://blog.saeloun.com/2023/07/28/integrate-replicate-ai-in-rails-application/) and featured in [Ruby Weekly issue #656](https://rubyweekly.com/issues/665).
+This post is also published in [blog.saeloun.com](https://blog.saeloun.com/2023/07/28/integrate-replicate-ai-in-rails-application/) and featured in [Ruby Weekly issue #665](https://rubyweekly.com/issues/665).
 
 With Replicate, we can run machine learning models in the cloud without the need 
 to set up our own infrastructure or have in-depth knowledge about machine learning.
