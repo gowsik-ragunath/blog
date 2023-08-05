@@ -1,8 +1,5 @@
 ---
-layout: post
-title: Extract Sample Rate of an Audio File with Audio Analyzer in Rails 7.1
-description: Extract the sample rate of an audio file with ActiveStorage::AudioAnalyzer which will return the bit rate, duration, and sample rate
-tags: [rails, rubyweekly]
+c
 ---
 
 This post is also published in [blog.saeloun.com](https://blog.saeloun.com/2023/05/29/extract-sample-rate-of-audio-from-audio-analyzer/) and featured in [Ruby Weekly issue #656](https://rubyweekly.com/issues/656).
