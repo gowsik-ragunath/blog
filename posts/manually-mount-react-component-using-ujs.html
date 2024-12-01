@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Gowsik | Manually mount react component using UJS</title>
+  <meta name="description" content="Mount react components manually while rendering element on JS request.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Manually mount react component using UJS">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.gowsik.info/posts/manually-mount-react-component-using-ujs">
+  <meta property="og:description" content="Mount react components manually while rendering element on JS request.">
+  <meta property="og:site_name" content="Gowsik">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://blog.gowsik.info/posts/manually-mount-react-component-using-ujs">
+  <meta name="twitter:title" content="Manually mount react component using UJS">
+  <meta name="twitter:description" content="Mount react components manually while rendering element on JS request.">
+
+  
+    <meta property="og:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+    <meta name="twitter:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+  
+
+  <link href="https://blog.gowsik.info/feed.xml" type="application/rss+xml" rel="alternate" title="Gowsik Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-4c760f0ea4166cfd4d40fb83b479f89aab382364c8585ae59b500b5260102afa.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" href="/assets/dark-b9d28dbdfd9e6e202befd4ef315790f4113137f7c4b307fd5df6ae0e46ce6a54.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Gowsik">Gowsik</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="https://gowsik.info" title="About me" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/gowsik_ragunath" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/gowsik-ragunath" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:v.gowsik@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Manually mount react component using UJS</h1>
+            <p>Mount react components manually while rendering element on JS request.</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    March 18, 2023
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      2 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/web" title="See all posts with tag 'Web'">Web</a>
+    
+      
+      <a href="/tag/rails" title="See all posts with tag 'Rails'">Rails</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>This post is also published in <a href="https://blog.saeloun.com/2023/02/16/manually-mount-react-component-using-ujs">blog.saeloun.com</a></p>
+
+<p>In this blog post, we will explore the process of manually 
+mounting React components in response to a JavaScript request.</p>
+
+<p>With the React-Rails gem, 
+we can render React components within our DOM using the <code class="highlighter-rouge">react_component</code> view helper. 
+We simply need to provide the component name 
+and its props as arguments. 
+When the page changes, 
+the React-Rails gem takes care of mounting the component automatically. 
+However, when we dynamically render an HTML element in response to a JavaScript request, 
+the components won’t be mounted automatically. 
+In such a scenario, 
+we have to manually mount the React components by using,</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">ReactRailsUJS</span><span class="p">.</span><span class="nx">mountComponents</span><span class="p">()</span></code></pre></figure>
+
+<p>Let’s check out an example,</p>
+
+<p>In the below form, there are two react components for the phone number and departure time fields,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># app/view/passenger/_form.html.erb</span>
+
+<span class="o">&lt;</span><span class="sx">%= form_with(model: passenger) do |form| %&gt;
+ &lt;div&gt;
+   &lt;%=</span> <span class="n">form</span><span class="p">.</span><span class="nf">label</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">style: </span><span class="s2">"display: block"</span> <span class="o">%&gt;</span>
+   <span class="o">&lt;</span><span class="sx">%= form.text_field :name %&gt;
+ &lt;/div&gt;
+
+ &lt;%=</span> <span class="n">react_component</span> <span class="s2">"phoneNumber"</span><span class="p">,</span> <span class="ss">name: </span><span class="s2">"passenger[phone_number]"</span> <span class="o">%&gt;</span>
+ <span class="o">&lt;</span><span class="sx">%= react_component "depatureTime", name: "passenger[depature_time]" %&gt;
+
+ &lt;div&gt;
+   &lt;%=</span> <span class="n">form</span><span class="p">.</span><span class="nf">submit</span> <span class="sx">%&gt;
+ &lt;/div&gt;</span>
+<span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/view/passenger/new.js.erb</span>
+
+<span class="kd">var</span> <span class="nx">passengerModal</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="err">“#</span><span class="nx">passengerModal</span><span class="err">”</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">modalContent</span> <span class="o">=</span> <span class="nx">passengerModal</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.modal-body</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">modalContent</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="err">“</span><span class="o">&lt;%=</span> <span class="nx">j</span> <span class="nx">render</span> <span class="err">“</span><span class="nx">form</span><span class="err">”</span><span class="p">,</span> <span class="nx">passenger</span><span class="p">:</span> <span class="nx">Passenger</span><span class="p">.</span><span class="k">new</span> <span class="o">%&gt;</span><span class="err">”</span><span class="p">;</span></code></pre></figure>
+
+<p>We are attaching this form to DOM by a JS request but those react components won’t mount when the server generated elements are attached to DOM.</p>
+
+<p><a href="/assets/mount-react/without-react-component-eb6c6019e262e9738708cf2d321019afdb33fae3d64c51af0e8b1aad983d40b1.png">
+  <img src="/assets/mount-react/without-react-component-eb6c6019e262e9738708cf2d321019afdb33fae3d64c51af0e8b1aad983d40b1.png" alt="without-react-component" class="zooming img-drop-shadow" data-rjs="/assets/mount-react/without-react-component-eb6c6019e262e9738708cf2d321019afdb33fae3d64c51af0e8b1aad983d40b1.png" data-zooming-width="830" data-zooming-height="508" />
+</a></p>
+
+<p>React-rails gem allows us to manually mount the react component by triggering <code class="highlighter-rouge">mountComponents</code> function,</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/view/passenger/new.js.erb</span>
+
+<span class="kd">var</span> <span class="nx">passengerModal</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="err">“#</span><span class="nx">passengerModal</span><span class="err">”</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">modalContent</span> <span class="o">=</span> <span class="nx">passengerModal</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.modal-body</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">modalContent</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="err">“</span><span class="o">&lt;%=</span> <span class="nx">j</span> <span class="nx">render</span> <span class="err">“</span><span class="k">new</span><span class="err">”</span><span class="p">,</span> <span class="nx">passenger</span><span class="p">:</span> <span class="nx">Passenger</span><span class="p">.</span><span class="k">new</span> <span class="o">%&gt;</span><span class="err">”</span><span class="p">;</span>
+
+<span class="nx">ReactRailsUJS</span><span class="p">.</span><span class="nx">mountComponents</span><span class="p">()</span></code></pre></figure>
+
+<p>This function call will mount all the react components that are on the page.</p>
+
+<p><a href="/assets/mount-react/with-react-component-1156dd778a0aceb3e44dac6f837f83249d2ef36e3953108a65487eb5a1124c49.png">
+  <img src="/assets/mount-react/with-react-component-1156dd778a0aceb3e44dac6f837f83249d2ef36e3953108a65487eb5a1124c49.png" alt="with-react-component" class="zooming img-drop-shadow" data-rjs="/assets/mount-react/with-react-component-1156dd778a0aceb3e44dac6f837f83249d2ef36e3953108a65487eb5a1124c49.png" data-zooming-width="924" data-zooming-height="874" />
+</a></p>
+
+<h3 id="final-thoughts">Final Thoughts</h3>
+
+<p>In conclusion, manually mounting React components can be a powerful technique 
+for web developers seeking greater control 
+and flexibility over their applications. 
+Whether we’re building a single-page application 
+or a more complex web platform, understanding 
+how to manually mount React components can help us optimize performance 
+and improve the user experience.</p>
+
+          </div>
+          <!-- <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Manually+mount+react+component+using+UJS%20-%20https://blog.gowsik.info/posts/manually-mount-react-component-using-ujs%20by%20@gowsik_ragunath" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.gowsik.info/posts/manually-mount-react-component-using-ujs" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div> -->
+
+          <!--  -->
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    You can read some random facts <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V342LMXNEK');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-3ee2c63bbac916f96cd7f90e83ab767f058ead1301444c9966f5156911c8be7f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>

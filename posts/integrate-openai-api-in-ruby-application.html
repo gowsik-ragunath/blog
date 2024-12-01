@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Gowsik | Integrate OpenAI API in Ruby applications</title>
+  <meta name="description" content="We can integrate OpenAI API in a ruby application by using ruby-openai gem which allows us to build an app with all the ChatGPT">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Integrate OpenAI API in Ruby applications">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.gowsik.info/posts/integrate-openai-api-in-ruby-application">
+  <meta property="og:description" content="We can integrate OpenAI API in a ruby application by using ruby-openai gem which allows us to build an app with all the ChatGPT">
+  <meta property="og:site_name" content="Gowsik">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://blog.gowsik.info/posts/integrate-openai-api-in-ruby-application">
+  <meta name="twitter:title" content="Integrate OpenAI API in Ruby applications">
+  <meta name="twitter:description" content="We can integrate OpenAI API in a ruby application by using ruby-openai gem which allows us to build an app with all the ChatGPT">
+
+  
+    <meta property="og:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+    <meta name="twitter:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+  
+
+  <link href="https://blog.gowsik.info/feed.xml" type="application/rss+xml" rel="alternate" title="Gowsik Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-4c760f0ea4166cfd4d40fb83b479f89aab382364c8585ae59b500b5260102afa.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" href="/assets/dark-b9d28dbdfd9e6e202befd4ef315790f4113137f7c4b307fd5df6ae0e46ce6a54.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Gowsik">Gowsik</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="https://gowsik.info" title="About me" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/gowsik_ragunath" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/gowsik-ragunath" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:v.gowsik@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Integrate OpenAI API in Ruby applications</h1>
+            <p>We can integrate OpenAI API in a ruby application by using ruby-openai gem which allows us to build an app with all the ChatGPT</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 9, 2023
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      13 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/ruby" title="See all posts with tag 'Ruby'">Ruby</a>
+    
+      
+      <a href="/tag/openai" title="See all posts with tag 'OpenAI API'">OpenAI API</a>
+    
+      
+      <a href="/tag/chatgpt" title="See all posts with tag 'Chat GPT'">Chat GPT</a>
+    
+      
+      <a href="/tag/ai" title="See all posts with tag 'AI'">AI</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>This post is also published in <a href="https://blog.saeloun.com/2023/05/22/integrate-openai-api-in-ruby-application/">blog.saeloun.com</a>.</p>
+
+<h3 id="what-is-chatgpt">What is ChatGPT?</h3>
+
+<p>ChatGPT is an artificial intelligence chatbot developed by OpenAI that allow us to have human-like conversations and generate image based on the text description. It is one of the greatest leaps in natural language processing.</p>
+
+<h3 id="integrating-openai-api-in-ruby-application">Integrating OpenAI API in ruby application:</h3>
+
+<p>We can implement all the ChatGPT features in a ruby application to make it more engaging for users by integrating OpenAI API. For this, we are using the <a href="https://github.com/alexrudall/ruby-openai">ruby-openai</a> gem which allows us to use various OpenAI models which we can pick based on the use case.</p>
+
+<h2 id="install-gem">Install gem:</h2>
+
+<p>Add the <code class="highlighter-rouge">ruby-openai</code> gem to the Gemfile.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s2">"ruby-openai"</span></code></pre></figure>
+
+<p>Then run <code class="highlighter-rouge">bundle install</code> to install the gem.</p>
+
+<h2 id="get-access-key">Get access key:</h2>
+
+<p>We have to generate an access key to get a response back, visit <a href="https://platform.openai.com/account/api-keys">API keys</a> page and create a new secret key.</p>
+
+<p>Copy the secret key and assign it to <code class="highlighter-rouge">OPENAI_ACCESS_TOKEN</code> environment variable.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">export</span> <span class="no">OPENAI_ACCESS_TOKEN</span><span class="o">=</span><span class="s2">"xxxxxxxxxxxxxxx"</span></code></pre></figure>
+
+<h2 id="configure-ruby-openai">Configure Ruby OpenAI:</h2>
+
+<p>If the account is tied to an organization then set the value in this environment variable <code class="highlighter-rouge">OPENAI_ORGANIZATION_ID</code>. We can find the organization ID value from the <a href="https://platform.openai.com/account/org-settings">Settings</a> page.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">OpenAI</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">access_token</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="s2">"OPENAI_ACCESS_TOKEN"</span><span class="p">)</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">organization_id</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="s2">"OPENAI_ORGANIZATION_ID"</span><span class="p">)</span> <span class="c1"># Optional.</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Then to create a client,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">client</span> <span class="o">=</span> <span class="no">OpenAI</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span></code></pre></figure>
+
+<h3 id="choosing-the-right-model">Choosing the right model:</h3>
+
+<p>Before diving into models we have to understand what a token is.</p>
+
+<p>This is an explanation from <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI article</a>,</p>
+
+<blockquote>
+  <p>Tokens can be thought of as pieces of words. Before the API processes the prompts, the input is broken down into tokens. These tokens are not cut up exactly where the words start or end - tokens can include trailing spaces and even sub-words.</p>
+
+  <ul>
+    <li>1 token ~= 4 chars in English</li>
+    <li>1 token ~= ¾ words</li>
+    <li>100 tokens ~= 75 words</li>
+  </ul>
+</blockquote>
+
+<p>We can consider approx. 4 characters as a token.</p>
+
+<p>OpenAI API has various models in each version and it can be used for different use cases,</p>
+
+<p><strong>1) GPT-4</strong></p>
+
+<p>GPT-4 model is great at solving complex problems with great accuracy and much more capable than the previous models, for most basic tasks there is no significant difference between GPT-4 and GPT-3.5 models.</p>
+
+<ul>
+  <li><strong>gpt-4</strong> model can do complex tasks and optimized chat it has max support for 8,192 tokens and the model is training data up to Sep 2021.</li>
+  <li><strong>gpt-4-32k</strong> model has the same capability as gpt-4 model but max 32,768 tokens support and training data up to Sep 2021.</li>
+</ul>
+
+<p><strong>2) GPT-3.5</strong></p>
+
+<p>GPT-3.5 models can understand and generate natural language or code. <code class="highlighter-rouge">gpt-3.5-turbo</code> is optimized for chat but works well for traditional tasks.</p>
+
+<ul>
+  <li>
+    <p><strong>gpt-3.5-turbo</strong> model is the most capable GPT-3.5 model which is optimized for chat and has max token support of 4,096 and training data up to Sept 2021.</p>
+  </li>
+  <li>
+    <p><strong>text-davinci-003</strong> model can do any language task with better quality, longer output, and consistent instruction. It has max token support of 4,096 and training data up to Jun 2021.</p>
+  </li>
+  <li>
+    <p><strong>text-davinci-002</strong> model is similar capabilities to text-davinci-003 but trained with supervised fine-tuning which has max token support of 4,096 and training data up to Jun 2021.</p>
+  </li>
+  <li>
+    <p><strong>code-davinci-002</strong> model is optimized for code completion tasks that have max token support of 8,001 and training data up to Jun 2021.</p>
+  </li>
+</ul>
+
+<p><strong>3) GPT-3</strong></p>
+
+<p>GPT-3 models can understand and generate natural language. These models were superseded by the more powerful GPT-3.5 generation models. All the models have max token support of 2,049 and training data up to Oct 2019.</p>
+
+<ul>
+  <li>
+    <p><strong>davinci</strong> model is the most capable model and can do any tasks with higher quality than other models.</p>
+  </li>
+  <li>
+    <p><strong>curie</strong> model is very capable but faster and lower cost compared to the davinci model.</p>
+  </li>
+  <li>
+    <p><strong>babbage</strong> model is capable of straightforward tasks, is very fast, and has a lower cost.</p>
+  </li>
+  <li>
+    <p><strong>ada</strong> model is capable of very simple tasks, the very fastest model in GPT-3 model, and has the lowest cost.</p>
+  </li>
+</ul>
+
+<p><strong>4) DALL-E</strong></p>
+
+<p>DALL-E model can generate and edit images from the description in natural language.</p>
+
+<p><strong>5) Whisper</strong></p>
+
+<p>Whisper model can convert audio into text, it can perform multilingual speech recognition, speech translation, and language identification.</p>
+
+<p><strong>6) Embedding</strong></p>
+
+<p>Embeddings are a numerical representation of text that can be used to measure the relatedness between two pieces of text these models are useful for search, clustering, recommendations, anomaly detection, and classification tasks.</p>
+
+<p><strong>7) Moderation</strong></p>
+
+<p>A fine-tuned model that can detect whether text may be sensitive or unsafe, this model will check whether the passed content complies with OpenAI usage policies.</p>
+
+<h3 id="chat">Chat:</h3>
+
+<p>We are using the <code class="highlighter-rouge">gpt-3.5-turbo</code> model as gpt-4 has only limited access at the time of writing this post.</p>
+
+<p>In a request, We have to pass two required parameters, <code class="highlighter-rouge">model</code> and <code class="highlighter-rouge">messages</code>. Inside the <code class="highlighter-rouge">messages</code> parameter, we should pass the <code class="highlighter-rouge">role</code> and <code class="highlighter-rouge">content</code> parameter values.</p>
+
+<p>In the <code class="highlighter-rouge">temperature</code> (optional) parameter, we have to pass a value between 0 to 2. A higher temperature value will result in more unpredictable and diverse responses and a lower temperature value will result in predictable and conservative responses.</p>
+
+<p>OpenAI API supports three roles,</p>
+
+<p><strong>system</strong> - System instruction helps set the behavior of the assistant (OpenAI response), it is the high-level instruction given for the conversation.</p>
+
+<p><strong>user</strong> - Instruction passed by the end user.</p>
+
+<p><strong>assistant</strong> - The assistant messages help store prior responses.</p>
+
+<p>As a response Ruby OpenAI API will return an object, this object will have,</p>
+
+<p><strong>id</strong> - Chat ID.</p>
+
+<p><strong>object</strong> - Name of the API that returns the response.</p>
+
+<p><strong>created</strong> - Response created at timestamp.</p>
+
+<p><strong>model</strong> - Model used to generate the response.</p>
+
+<p><strong>usage</strong> - Usage returns the number of tokens passed and generated.</p>
+
+<p><strong>choices</strong> - Message generated by the model and the status of the result.</p>
+
+<p>In this case, we have set the role as a <code class="highlighter-rouge">user</code> and the message or question in the <code class="highlighter-rouge">content</code> parameter.</p>
+
+<p><strong>Example 1: Solving Problems:</strong></p>
+
+<p>In the below example, we have asked Open AI API to calculate the time taken for a spaceship to reach the Sun from the Earth which returns a step by step calculations.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">client</span> <span class="o">=</span> <span class="no">OpenAI</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">chat</span><span class="p">(</span>
+    <span class="ss">parameters: </span><span class="p">{</span>
+        <span class="ss">model: </span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span> <span class="c1"># Required.</span>
+        <span class="ss">messages: </span><span class="p">[{</span> <span class="ss">role: </span><span class="s2">"user"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"If a spaceship is travelling at a speed of 70 KM/s, how long would it take to reach the sun from the earth?"</span><span class="p">}],</span> <span class="c1"># Required.</span>
+        <span class="ss">temperature: </span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">)</span>
+
+<span class="c1"># The distance between the Earth and the Sun is approximately 149.6 million kilometers. </span>
+
+<span class="c1"># To calculate the time it would take for the spaceship to reach the Sun from the Earth:</span>
+
+<span class="c1"># time = distance ÷ speed</span>
+
+<span class="c1"># time = 149,600,000 km ÷ 70 km/s</span>
+
+<span class="c1"># time = 2,137,143 seconds</span>
+
+<span class="c1"># Convert seconds to days:</span>
+
+<span class="c1"># 2,137,143 seconds ÷ 86,400 seconds/day = 24.7 days</span>
+
+<span class="c1"># Therefore, it would take approximately 24.7 days for the spaceship to reach the Sun from the Earth at a speed of 70 km/s.</span></code></pre></figure>
+
+<p><strong>Example 2: Technical Questions:</strong></p>
+
+<p>In the below example, we have asked Open AI to explain about <code class="highlighter-rouge">&lt;&gt;&lt;/&gt;</code> use in react.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">chat</span><span class="p">(</span>
+    <span class="ss">parameters: </span><span class="p">{</span>
+        <span class="ss">model: </span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span> <span class="c1"># Required.</span>
+        <span class="ss">messages: </span><span class="p">[{</span> <span class="ss">role: </span><span class="s2">"user"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"What is &lt;&gt; in react?"</span><span class="p">}],</span> <span class="c1"># Required.</span>
+        <span class="ss">temperature: </span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">)</span>
+
+<span class="c1"># In React, the &lt;&gt; symbol, also known as the Fragment shorthand, is used to group multiple elements together without adding....</span></code></pre></figure>
+
+<p><strong>Example 3: Back and forth conversation:</strong></p>
+
+<p>In the below example, we can pass the prior conversation history as an instruction to have a more interactive and dynamic conversation.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">chat</span><span class="p">(</span>
+  <span class="ss">parameters: </span><span class="p">{</span>
+    <span class="ss">model: </span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span> <span class="c1"># Required.</span>
+    <span class="ss">messages: </span><span class="p">[</span>
+      <span class="p">{</span> <span class="ss">role: </span><span class="s2">"system"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"You are an assistant that recommends movies"</span> <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="ss">temperature: </span><span class="mf">0.7</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">)</span>
+
+<span class="c1"># Great, I am happy to help you with movie recommendations. Can you please let me know your preference? Do you have any specific genre or language in mind?</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">chat</span><span class="p">(</span>
+  <span class="ss">parameters: </span><span class="p">{</span>
+    <span class="ss">model: </span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span> <span class="c1"># Required.</span>
+    <span class="ss">messages: </span><span class="p">[</span>
+      <span class="p">{</span> <span class="ss">role: </span><span class="s2">"system"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"You are an assistant that recommends movies"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="ss">role: </span><span class="s2">"user"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"Suggest an animation movie"</span> <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="ss">temperature: </span><span class="mf">0.7</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">)</span>
+<span class="c1"># Sure, how about "Soul" directed by Pete Docter and Kemp Powers? It's a heartwarming and visually stunning movie about a middle school music teacher named Joe who finally gets his big break as a jazz musician, but then falls into a manhole and finds himself in a mystical realm where souls are prepared for life on earth. With the help of a spunky and determined soul named 22, Joe learns the true meaning of life and the importance of following your passions. It's a great movie for all ages and has won multiple awards including the Academy Award for Best Animated Feature.</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">chat</span><span class="p">(</span>
+  <span class="ss">parameters: </span><span class="p">{</span>
+    <span class="ss">model: </span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span> <span class="c1"># Required.</span>
+    <span class="ss">messages: </span><span class="p">[</span>
+      <span class="p">{</span> <span class="ss">role: </span><span class="s2">"system"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"You are an assistant that recommends movies"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="ss">role: </span><span class="s2">"user"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"Suggest an animation movie"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="ss">role: </span><span class="s2">"assistant"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"Sure, how about 'Soul' directed by Pete Docter and Kemp Powers? It's a heartwarming and visually stunning movie about a middle school music teacher named Joe who finally gets his big break as a jazz musician, but then falls into a manhole and finds himself in a mystical realm where souls are prepared for life on earth. With the help of a spunky and determined soul named 22, Joe learns the true meaning of life and the importance of following your passions. It's a great movie for all ages and has won multiple awards including the Academy Award for Best Animated Feature."</span><span class="p">},</span>
+      <span class="p">{</span> <span class="ss">role: </span><span class="s2">"user"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"What is the runtime of the movie?"</span> <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="ss">temperature: </span><span class="mf">0.7</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">)</span>
+
+<span class="c1"># The runtime of 'Soul' is 1 hour and 47 minutes.</span></code></pre></figure>
+
+<h3 id="stream-the-response">Stream the response:</h3>
+
+<p>To make the application more engaging for users we can stream a chuck of responses.</p>
+
+<p>For this, we’ll have to pass a <code class="highlighter-rouge">stream</code> parameter along with the <code class="highlighter-rouge">role</code> and <code class="highlighter-rouge">content</code> to stream the result.</p>
+
+<p>In the stream parameter, we can pass a proc that prints the stream of response chunks that is generated. With this, we can set up a ChatGPT-like messaging stream in the Rails app by following <a href="https://gist.github.com/alexrudall/cb5ee1e109353ef358adb4e66631799d">this guide</a>.</p>
+
+<p>In the below example, we have asked Open AI API to explain the Color theory, the result will be a detailed explanation of color theory instead of waiting for the complete result we can stream chunks to the user and improve the user experience.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">client</span><span class="p">.</span><span class="nf">chat</span><span class="p">(</span>
+    <span class="ss">parameters: </span><span class="p">{</span>
+        <span class="ss">model: </span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span> <span class="c1"># Required.</span>
+        <span class="ss">messages: </span><span class="p">[{</span> <span class="ss">role: </span><span class="s2">"user"</span><span class="p">,</span> <span class="ss">content: </span><span class="s2">"Explain about color theory"</span><span class="p">}],</span> <span class="c1"># Required.</span>
+        <span class="ss">temperature: </span><span class="mi">1</span><span class="p">,</span>
+        <span class="ss">stream: </span><span class="nb">proc</span> <span class="k">do</span> <span class="o">|</span><span class="n">chunk</span><span class="p">,</span> <span class="n">_bytesize</span><span class="o">|</span>
+            <span class="nb">print</span> <span class="n">chunk</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"delta"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="p">})</span>
+<span class="c1"># The Hubble constant is a measure of the rate at which the universe is expanding. It is denoted by the symbol H0.....</span></code></pre></figure>
+
+<h3 id="complete-text">Complete text:</h3>
+
+<p>We will be using the GPT-3.5 <code class="highlighter-rouge">text-davinci-003</code> model to complete the text.</p>
+
+<p>We have to pass the content in <code class="highlighter-rouge">prompt</code> parameters which the model uses to complete the text. We can also pass the maximum tokens that need to be generated to complete the text.</p>
+
+<p><strong>Example 1: Social media description:</strong></p>
+
+<p>In the below example, We have asked Open AI to complete a social media description.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">completions</span><span class="p">(</span>
+    <span class="ss">parameters: </span><span class="p">{</span>
+        <span class="ss">model: </span><span class="s2">"text-davinci-003"</span><span class="p">,</span>
+        <span class="ss">prompt: </span><span class="s2">"Complete this social media description 'Went for a hike'"</span><span class="p">,</span>
+        <span class="ss">max_tokens: </span><span class="mi">15</span>
+    <span class="p">})</span>
+<span class="nb">puts</span> <span class="n">response</span><span class="p">[</span><span class="s2">"choices"</span><span class="p">].</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span> <span class="p">}</span>
+
+<span class="c1"># Today I went for a hike in nature! It was a peaceful</span></code></pre></figure>
+
+<p><strong>Example 2: Ask Open AI API to complete the code!:</strong></p>
+
+<p>In the below example, We have asked Open AI API to complete a simple ruby addition code.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">completions</span><span class="p">(</span>
+    <span class="ss">parameters: </span><span class="p">{</span>
+        <span class="ss">model: </span><span class="s2">"text-davinci-003"</span><span class="p">,</span>
+        <span class="ss">prompt: </span><span class="s2">"ruby sum of two numbers 'a = 10; b = 12;"</span><span class="p">,</span>
+        <span class="ss">max_tokens: </span><span class="mi">20</span>
+    <span class="p">})</span>
+<span class="nb">puts</span> <span class="n">response</span><span class="p">[</span><span class="s2">"choices"</span><span class="p">].</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span> <span class="p">}</span>
+
+<span class="c1"># a + b # =&gt; 22</span></code></pre></figure>
+
+<h3 id="edit-text">Edit text:</h3>
+
+<p>We will be using the <code class="highlighter-rouge">text-davinci-edit-001</code> model to edit the text.</p>
+
+<p>We have to pass the content in <code class="highlighter-rouge">input</code> parameter and a description of the task in <code class="highlighter-rouge">instruction</code> parameter.</p>
+
+<p><strong>Example 1: Transplate code to different programming language:</strong></p>
+
+<p>In the below example, we have instructed Open AI API to translate a code snippet to C. In the results, it returns the entire C program and the interesting part is I didn’t even mention the programming language of the code snippet that I have passed.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">edits</span><span class="p">(</span>
+  <span class="ss">parameters: </span><span class="p">{</span>
+    <span class="ss">model: </span><span class="s2">"text-davinci-edit-001"</span><span class="p">,</span>
+    <span class="ss">input: </span><span class="s2">"var a=10; var b=13;"</span><span class="p">,</span>
+    <span class="ss">instruction: </span><span class="s2">"Convert the code into C language"</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">)</span>
+
+<span class="c1"># #include&lt;stdio.h&gt;</span>
+<span class="c1"># int main()                                                                         </span>
+<span class="c1"># {                                                                                  </span>
+<span class="c1"># int a=10,b=13;                                                                 </span>
+<span class="c1"># printf("%d\t%d", a, b);                                                           </span>
+<span class="c1"># return 0;                                                                         </span>
+<span class="c1"># }    </span></code></pre></figure>
+
+<p><strong>Example 2: Find and replace and formatting:</strong></p>
+
+<p>In this below example, we have passed a input and insturcted Open AI API to replace a word and capitalize each word in the sentence.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">edits</span><span class="p">(</span>
+  <span class="ss">parameters: </span><span class="p">{</span>
+    <span class="ss">model: </span><span class="s2">"text-davinci-edit-001"</span><span class="p">,</span>
+    <span class="ss">input: </span><span class="s2">"the once was a ship that put"</span><span class="p">,</span>
+    <span class="ss">instruction: </span><span class="s2">"Replace the with there and capitalize each word in the sentence"</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"choices"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">)</span>
+
+<span class="c1"># There Once Was A Ship That Put</span></code></pre></figure>
+
+<h3 id="moderate-text">Moderate text:</h3>
+
+<p>We can use moderate text with OpenAI API, it will check whether the passed content complies with OpenAI usage policies.</p>
+
+<p>There are seven categories and OpenAI API generate score for all seven categories, the scores will be between 0 to 1 a higher value denotes higher confidence <a href="https://platform.openai.com/docs/guides/moderation/overview">ref.</a></p>
+
+<p>In the below example, we will be using the <code class="highlighter-rouge">text-moderation-stable</code> model and as a result, the score of the hate category will be returned.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">moderations</span><span class="p">(</span><span class="ss">parameters: </span><span class="p">{</span> <span class="ss">input: </span><span class="s2">"I'm worried about that."</span> <span class="p">})</span>
+
+ <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"results"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"category_scores"</span><span class="p">,</span> <span class="s2">"hate"</span><span class="p">)</span>
+ <span class="c1"># 1.10379015e-05 ~= 0.0000110379</span></code></pre></figure>
+
+<h3 id="image-generator">Image generator:</h3>
+
+<p>Using the DALL-E model we can describe an image or art by describing it in natural language.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">images</span><span class="p">.</span><span class="nf">generate</span><span class="p">(</span><span class="ss">parameters: </span><span class="p">{</span> <span class="ss">prompt: </span><span class="s2">"Oil painting of a space shuttle"</span><span class="p">,</span> <span class="ss">size: </span><span class="s2">"512x512"</span> <span class="p">})</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">)</span>
+<span class="c1"># https://oaidalleapiprodscus.blob.core.windows.net/private/org-I.....</span></code></pre></figure>
+
+<p>In the prompt parameter, we can describe the image that needs to be generated and in the size parameter we can pass the resolution, an image can be generated in 256x256, 512x512, or 1024x1024, if the size parameter is not passed 1024x1024 will be set as default.</p>
+
+<p>This is the image generated,</p>
+
+<p><a href="/assets/ruby-openai/chat-gpt-oil-painting-f2176418752b875c5d1cef9b220b94884c150658b3c8ad2ed5bbad7e00f4e45d.png">
+  <img src="/assets/ruby-openai/chat-gpt-oil-painting-f2176418752b875c5d1cef9b220b94884c150658b3c8ad2ed5bbad7e00f4e45d.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/ruby-openai/chat-gpt-oil-painting-f2176418752b875c5d1cef9b220b94884c150658b3c8ad2ed5bbad7e00f4e45d.png" data-zooming-width="512" data-zooming-height="512" />
+</a></p>
+
+<h3 id="edit-image">Edit image:</h3>
+
+<p>We can also edit images but for that, we have to mask the image with a transparent section. The masked section can be altered based on the description.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">images</span><span class="p">.</span><span class="nf">edit</span><span class="p">(</span><span class="ss">parameters: </span><span class="p">{</span> <span class="ss">prompt: </span><span class="s2">"A dog standing under tree"</span><span class="p">,</span> <span class="ss">image: </span><span class="s2">"tree.png"</span> <span class="p">})</span>
+
+ <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">)</span>
+
+<span class="c1"># https://oaidalleapiprodscus.blob.core.windows.net/private/org-INB....</span></code></pre></figure>
+
+<p>This is the tree image that’s used for testing,</p>
+
+<p><a href="/assets/ruby-openai/tree-aeed2818c600b98083aa0a540ac8ba2ca7505e668b4e7762b3681594d40be1aa.png">
+  <img src="/assets/ruby-openai/tree-aeed2818c600b98083aa0a540ac8ba2ca7505e668b4e7762b3681594d40be1aa.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/ruby-openai/tree-aeed2818c600b98083aa0a540ac8ba2ca7505e668b4e7762b3681594d40be1aa.png" data-zooming-width="512" data-zooming-height="512" />
+</a></p>
+
+<p>The image generated,</p>
+
+<p><a href="/assets/ruby-openai/chat-gpt-dog-under-tree-323070edf66319f90bb71d0a31b057b8e4d6e06e66874644f8c7a4c9256a9fd0.png">
+  <img src="/assets/ruby-openai/chat-gpt-dog-under-tree-323070edf66319f90bb71d0a31b057b8e4d6e06e66874644f8c7a4c9256a9fd0.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/ruby-openai/chat-gpt-dog-under-tree-323070edf66319f90bb71d0a31b057b8e4d6e06e66874644f8c7a4c9256a9fd0.png" data-zooming-width="1024" data-zooming-height="1024" />
+</a></p>
+
+<h1 id="transcribe">Transcribe:</h1>
+
+<p>We can use the <code class="highlighter-rouge">whisper-1</code> model to transcribe the audio.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">transcribe</span><span class="p">(</span>
+  <span class="ss">parameters: </span><span class="p">{</span>
+  <span class="ss">model: </span><span class="s2">"whisper-1"</span><span class="p">,</span>
+  <span class="ss">file: </span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s2">"Conference.wav"</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span>
+
+<span class="c1"># This is Peter. This is Johnny. Kenny. And Josh. We just wanted to take a minute to thank you.</span></code></pre></figure>
+
+<h2 id="conclusion">Conclusion:</h2>
+
+<p>Integrating OpenAI API will open up endless possibilities for improving the user experience and making the site more engaging, it provides versatile language models that can simplify most of the traditional tasks and also solves complex problems. We can use it as a chatbot, to translate or transcribe audio, write or debug code, generate or edit images, and many more things.</p>
+
+          </div>
+          <!-- <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Integrate+OpenAI+API+in+Ruby+applications%20-%20https://blog.gowsik.info/posts/integrate-openai-api-in-ruby-application%20by%20@gowsik_ragunath" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.gowsik.info/posts/integrate-openai-api-in-ruby-application" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div> -->
+
+          <!--  -->
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    You can read some random facts <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V342LMXNEK');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-3ee2c63bbac916f96cd7f90e83ab767f058ead1301444c9966f5156911c8be7f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Gowsik | Integrate Replicate in Rails Application</title>
+  <meta name="description" content="Integrate Replicate in Rails application and effortlessly run various machine learning models in the cloud using Replicate">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Integrate Replicate in Rails Application">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.gowsik.info/posts/integrate-replicate-ai-in-rails-application">
+  <meta property="og:description" content="Integrate Replicate in Rails application and effortlessly run various machine learning models in the cloud using Replicate">
+  <meta property="og:site_name" content="Gowsik">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://blog.gowsik.info/posts/integrate-replicate-ai-in-rails-application">
+  <meta name="twitter:title" content="Integrate Replicate in Rails Application">
+  <meta name="twitter:description" content="Integrate Replicate in Rails application and effortlessly run various machine learning models in the cloud using Replicate">
+
+  
+    <meta property="og:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+    <meta name="twitter:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+  
+
+  <link href="https://blog.gowsik.info/feed.xml" type="application/rss+xml" rel="alternate" title="Gowsik Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-4c760f0ea4166cfd4d40fb83b479f89aab382364c8585ae59b500b5260102afa.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" href="/assets/dark-b9d28dbdfd9e6e202befd4ef315790f4113137f7c4b307fd5df6ae0e46ce6a54.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Gowsik">Gowsik</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="https://gowsik.info" title="About me" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/gowsik_ragunath" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/gowsik-ragunath" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:v.gowsik@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Integrate Replicate in Rails Application</h1>
+            <p>Integrate Replicate in Rails application and effortlessly run various machine learning models in the cloud using Replicate</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    August 5, 2023
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      9 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/rails" title="See all posts with tag 'Rails'">Rails</a>
+    
+      
+      <a href="/tag/rubyweekly" title="See all posts with tag 'Ruby Weekly'">Ruby Weekly</a>
+    
+      
+      <a href="/tag/ai" title="See all posts with tag 'AI'">AI</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>This post is also published in <a href="https://blog.saeloun.com/2023/07/28/integrate-replicate-ai-in-rails-application/">blog.saeloun.com</a> and featured in <a href="https://rubyweekly.com/issues/665">Ruby Weekly issue #665</a>.</p>
+
+<p>With Replicate, we can run machine learning models in the cloud without the need 
+to set up our own infrastructure or have in-depth knowledge about machine learning.
+Replicate allows us to run both public and private models.</p>
+
+<p>Let’s understand some terminologies that are used in Replicate,</p>
+
+<ul>
+  <li>Models - Models are referred to as trained packages, and published software package that accepts input and return output.</li>
+  <li>Versions - Similar to software applications, Machine Learning models will also be changed and new versions will be published.</li>
+  <li>Predictions - Predictions is the object that has the result generated by models based on the input provided and metadata about the result.</li>
+</ul>
+
+<p>We can run models in Replicate in the browser and with APIs, the best way to explore different models is by running models from the browser.</p>
+
+<h3 id="running-model-in-browser">Running model in browser:</h3>
+
+<p>Visit the <a href="https://replicate.com/explore">Explore</a> page, which will have various models that we can try. For example, we will test the 
+<a href="https://replicate.com/tencentarc/gfpgan">gfpgan</a> model in browser. The gfpgan model can be used for face restoration.</p>
+
+<p><code class="highlighter-rouge">img</code> and <code class="highlighter-rouge">version</code> are mandatory fields and in <code class="highlighter-rouge">scale</code> field we have to pass a float value.</p>
+
+<p><a href="/assets/replicate-ai/browser-6e51d93a4e1748906e8e5d0854c836f8ab73669f03a65298ae997b342626f146.png">
+  <img src="/assets/replicate-ai/browser-6e51d93a4e1748906e8e5d0854c836f8ab73669f03a65298ae997b342626f146.png" alt="" class="zooming img-drop-shadow" data-rjs="/assets/replicate-ai/browser-6e51d93a4e1748906e8e5d0854c836f8ab73669f03a65298ae997b342626f146.png" data-zooming-width="3582" data-zooming-height="1724" />
+</a></p>
+
+<p>Source: https://replicate.com/tencentarc/gfpgan</p>
+
+<p>This was the original image added to <code class="highlighter-rouge">img</code> field (a low-quality and noisy picture of Albert Einstein).</p>
+
+<p><a href="/assets/replicate-ai/einstein-20b3de27baa9ca9d21311565889d7ed00e2bd52700214b7029f0f82fd1bceb26.jpg">
+  <img src="/assets/replicate-ai/einstein-20b3de27baa9ca9d21311565889d7ed00e2bd52700214b7029f0f82fd1bceb26.jpg" alt="" class="zooming img-drop-shadow" data-rjs="/assets/replicate-ai/einstein-20b3de27baa9ca9d21311565889d7ed00e2bd52700214b7029f0f82fd1bceb26.jpg" data-zooming-width="616" data-zooming-height="616" />
+</a></p>
+
+<p>And the output image generated by the model is a clean, scaled, and restored image,</p>
+
+<p><a href="/assets/replicate-ai/albert-hq-1cb3115ea2c71dd98bb2c57bfb75744b4c1679cdf467a131c2ed86b24c5d8cf8.jpg">
+  <img src="/assets/replicate-ai/albert-hq-1cb3115ea2c71dd98bb2c57bfb75744b4c1679cdf467a131c2ed86b24c5d8cf8.jpg" alt="" class="zooming img-drop-shadow" data-rjs="/assets/replicate-ai/albert-hq-1cb3115ea2c71dd98bb2c57bfb75744b4c1679cdf467a131c2ed86b24c5d8cf8.jpg" data-zooming-width="1232" data-zooming-height="1232" />
+</a></p>
+
+<h3 id="running-model-with-api">Running model with API:</h3>
+
+<p>Similar to running the model in browser, we can run it with API.</p>
+
+<p>Replicate doesn’t have an official gem at the time of writing this blog
+but there are community-maintained gems for both Ruby and Rails.</p>
+
+<ul>
+  <li><a href="https://github.com/dreamingtulpa/replicate-rails">replicate-rails</a></li>
+  <li><a href="https://github.com/dreamingtulpa/replicate-ruby">replicate-ruby</a></li>
+</ul>
+
+<p>In this blog, we will be using <code class="highlighter-rouge">replicate-rails</code> gem to integrate Replicate API 
+in rails application.</p>
+
+<p><a href="https://github.com/dreamingtulpa/replicate-rails">ReplicateRails</a> gem bundles the <a href="https://github.com/dreamingtulpa/replicate-ruby">ReplicateRuby</a> 
+we can use all the methods supported by <code class="highlighter-rouge">ReplicateRuby</code> in our rails application with <code class="highlighter-rouge">ReplicateRails</code>.</p>
+
+<p>Before jumping into the integration part, let’s explore various methods supported in 
+<code class="highlighter-rouge">ReplicateRuby</code> and <code class="highlighter-rouge">ReplicateRails</code> gems.</p>
+
+<h5 id="retrieve-model">Retrieve Model:</h5>
+
+<p>To retrieve a model using API we first need to find the model name.</p>
+
+<p>In <a href="https://replicate.com/stability-ai/stable-diffusion">Replicate model page</a> visit the <a href="https://replicate.com/stability-ai/stable-diffusion/api"><code class="highlighter-rouge">API</code></a> tab.</p>
+
+<p>There will be step-by-step instructions about running the model, there we can find the model name(underlined in red) as shown in the image.</p>
+
+<p><a href="/assets/replicate-ai/model-name-b8070b385fcc4202840f52da240712821f96c35ff8645735b22addf04a4fcd1d.png">
+  <img src="/assets/replicate-ai/model-name-b8070b385fcc4202840f52da240712821f96c35ff8645735b22addf04a4fcd1d.png" alt="" class="zooming img-drop-shadow" data-rjs="/assets/replicate-ai/model-name-b8070b385fcc4202840f52da240712821f96c35ff8645735b22addf04a4fcd1d.png" data-zooming-width="2128" data-zooming-height="920" />
+</a></p>
+
+<p>Source: https://replicate.com/stability-ai/stable-diffusion/api</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Retrieve model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="no">Replicate</span><span class="p">.</span><span class="nf">client</span><span class="p">.</span><span class="nf">retrieve_model</span><span class="p">(</span><span class="s2">"stability-ai/stable-diffusion"</span><span class="p">)</span>
+<span class="c1"># Get the latest version</span>
+<span class="n">version</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">latest_version</span></code></pre></figure>
+
+<p>This will retrieve the model object and to get the latest version we can chain the model object with the <code class="highlighter-rouge">latest_version</code> method.</p>
+
+<p>If we want to get a specific version of a model we can use this command instead,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">##### Pass ID value to the version key to get a specific version of the model</span>
+<span class="n">version</span> <span class="o">=</span> <span class="no">Replicate</span><span class="p">.</span><span class="nf">client</span><span class="p">.</span><span class="nf">retrieve_model</span><span class="p">(</span><span class="s2">"stability-ai/stable-diffusion"</span><span class="p">,</span> <span class="ss">version: </span><span class="s2">"&lt;id&gt;"</span><span class="p">)</span></code></pre></figure>
+
+<h5 id="run-prediction">Run Prediction:</h5>
+
+<p>After retrieving the model and selecting the version we can run a prediction,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># without webhook url</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">version</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="ss">prompt: </span><span class="s2">"a handsome teddy bear"</span><span class="p">)</span>
+
+<span class="c1"># with webhook url</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">version</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="ss">prompt: </span><span class="s2">"a handsome teddy bear"</span><span class="p">,</span> <span class="s2">"https://yourdomain.tld/replicate/webhook"</span><span class="p">)</span></code></pre></figure>
+
+<p>As we have chosen the stable diffusion model it only requires one field <code class="highlighter-rouge">prompt</code> based on the passed value
+images will be generated.</p>
+
+<p>The required fields will change for each model, check the <a href="https://replicate.com/stability-ai/stable-diffusion/api">API page</a> to know more about the API and required fields.</p>
+
+<p>In the <code class="highlighter-rouge">predict</code> method, we can also pass the <code class="highlighter-rouge">webhook</code> URL which will send back a response when the prediction is completed 
+or canceled.</p>
+
+<h5 id="refetch-retrieve-and-cancel-prediction">Refetch, retrieve, and cancel prediction:</h5>
+
+<p>If we don’t pass the webhook url then we have to manually check the status of the prediction. To check the prediction status 
+run the following command,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># without webhook url</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">version</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="ss">prompt: </span><span class="s2">"a handsome teddy bear"</span><span class="p">)</span>
+
+<span class="c1"># manually refetch the prediction status</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">.</span><span class="nf">refetch</span></code></pre></figure>
+
+<p>If we want to cancel the prediction then we can run the following command,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># without webhook url</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">version</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="ss">prompt: </span><span class="s2">"a handsome teddy bear"</span><span class="p">)</span>
+
+<span class="c1"># manually refetch the prediction status</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">.</span><span class="nf">cancel</span></code></pre></figure>
+
+<p>Each prediction has a unique ID even if we lose the prediction object we can retrieve it by passing the ID to the following command,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># retrieve prediction</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="no">Replicate</span><span class="p">.</span><span class="nf">client</span><span class="p">.</span><span class="nf">retrieve_prediction</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></code></pre></figure>
+
+<h5 id="get-prediction-output">Get Prediction Output:</h5>
+
+<p>Once the prediction is completed we can get the output using the following command,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># get output of a succeeded prediction</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">.</span><span class="nf">output</span>
+
+<span class="c1"># #&lt;Replicate::Record::Prediction:22860 id: "prhpjbzb2x5lbjspttst54ypc4", version: "9283608cc6b7be6b65a8e44983db012355fde4132009bf99d976b2f0896856a3", input: {"img"=&gt;"data:image/jpeg;base64,...", "scale"=&gt;2, "version"=&gt;"v1.4"}, logs: "/tmp/tmpbd73lp0lfile.jpg v1.4 2.0 0.5\n", output: "https://replicate.delivery/pbxt/YqQ7hBkflWyqRSyIGi8czd3kMiePVWrCrREaJ0ZVJXlpVaPRA/out..jpg", error: nil, status: "succeeded", created_at: "2023-07-13T12:51:52.220037Z", started_at: "2023-07-13T12:51:52.251012Z", completed_at: "2023-07-13T12:51:53.505575Z", webhook: "https://26b1-117-253-182-229.ngrok-free.app/replicate/webhook", webhook_events_filter: ["completed"], metrics: {"predict_time"=&gt;1.254563}, urls: {"cancel"=&gt;"https://api.replicate.com/v1/predictions/prhpjbzb2x5lbjspttst54ypc4/cancel", "get"=&gt;"https://api.replicate.com/v1/predictions/prhpjbzb2x5lbjspttst54ypc4"}&gt;</span></code></pre></figure>
+
+<p>The output response will have prediction id, status, output URL, and other metadata.</p>
+
+<h3 id="integrate-replicate-api-in-rails">Integrate Replicate API in Rails:</h3>
+
+<p>I have created a Rails application and integrated Replicate API, the application is available 
+in <a href="https://github.com/gowsik-ragunath/integration-replicate-rails">this repository</a>. You can use 
+this repository to test the integration.</p>
+
+<p><strong>1) Set ENV variable:</strong></p>
+
+<p>First, we need to get the Replicate API token to make an API request.</p>
+
+<p>We can find the API keys in <a href="https://replicate.com/account/api-tokens">API token</a> page, copy that
+and set the token to <code class="highlighter-rouge">REPLICATE_API_TOKEN</code> environment variable like this,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">export</span> <span class="no">REPLICATE_API_TOKEN</span><span class="o">=</span><span class="n">xxxxxxxxxxxxxx</span></code></pre></figure>
+
+<p><strong>2) Add <code class="highlighter-rouge">replicate-rails</code> Gem:</strong></p>
+
+<p>Then, we need to add the gem in Gemfile,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">## Gemfile</span>
+
+<span class="n">gem</span> <span class="s1">'replicate-rails'</span><span class="p">,</span> <span class="ss">require: </span><span class="s1">'replicate_rails'</span></code></pre></figure>
+
+<p>and run <code class="highlighter-rouge">bundle install</code> this will install the replicate rails gem and all the dependencies.</p>
+
+<p><strong>3) Add Ngrok to development.rb</strong></p>
+
+<p>In the development environment, we need to set up an endpoint to receive a webhook response during app testing.</p>
+
+<p><a href="https://ngrok.com/">Ngrok</a> will expose our local server to the internet. The installation setup will be available on the Ngrok site.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">ngrok http 3000
+
+// Session Status                                                                                                                                
+// Web Interface  http://127.0.0.1:4040                                                                                                                
+// Forwarding     https://a258-117-206-136-164.ngrok-free.app -&gt; http://localhost:3000  </code></pre></figure>
+
+<p>Running this command will expose the local server and will generate a forwarding URL.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">export </span><span class="nv">NGROK_URL</span><span class="o">=</span><span class="s2">"a258-117-206-136-164.ngrok-free.app"</span></code></pre></figure>
+
+<p>In a separate terminal, add the URL to <code class="highlighter-rouge">NGROK_URL</code> environment variable.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config/development.rb</span>
+
+<span class="n">config</span><span class="p">.</span><span class="nf">hosts</span> <span class="o">&lt;&lt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"NGROK_URL"</span><span class="p">]</span></code></pre></figure>
+
+<p>In <code class="highlighter-rouge">config/development.rb</code>, add forwarding url to <code class="highlighter-rouge">config.hosts</code>.</p>
+
+<p><strong>4) Set API token and webhook adapter:</strong></p>
+
+<p>In <code class="highlighter-rouge">config/initializers</code> create a new file called <code class="highlighter-rouge">replicate.rb</code> and add the below code,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">## config/initializers/replicate.rb</span>
+
+<span class="c1"># Set API token</span>
+<span class="no">Replicate</span><span class="p">.</span><span class="nf">client</span><span class="p">.</span><span class="nf">api_token</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"REPLICATE_API_TOKEN"</span><span class="p">]</span> 
+
+<span class="c1"># This class will handles the webhook sent by Replicate</span>
+<span class="k">class</span> <span class="nc">ReplicateWebhook</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
+    <span class="n">runner</span> <span class="o">=</span> <span class="no">Runner</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">prediction_id: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="k">if</span> <span class="n">runner</span><span class="p">.</span><span class="nf">nil?</span>
+
+    <span class="n">runner</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">status: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">status</span><span class="p">,</span> <span class="ss">output: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">output</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">ReplicateRails</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">webhook_adapter</span> <span class="o">=</span> <span class="no">ReplicateWebhook</span><span class="p">.</span><span class="nf">new</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>When the rails server starts the Replicate API token and webhook adapter will be set.</p>
+
+<p>When the webhook is received the runner record will be updated with the Output(image URL in this case) 
+generated by the model and the status of the prediction.</p>
+
+<p><strong>5) Add routes to handle Webhook:</strong></p>
+
+<p>Add a route to handle the Replicate webhook response,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">## config/routes.rb</span>
+<span class="n">mount</span> <span class="no">ReplicateRails</span><span class="o">::</span><span class="no">Engine</span> <span class="o">=&gt;</span> <span class="s2">"/replicate/webhook"</span></code></pre></figure>
+
+<p>Whenever a Post request is received in <code class="highlighter-rouge">/replicate/webhook</code> path, the request will be 
+handled by the <code class="highlighter-rouge">ReplicateWebhook</code> class which we have set as the webhook adapter.</p>
+
+<p><strong>6) Service that send prediction request:</strong></p>
+
+<p>In the service, we will be using <a href="https://replicate.com/tencentarc/gfpgan"><code class="highlighter-rouge">tencentarc/gfpgan</code></a> model.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># app/services/replicate_prediction.rb</span>
+
+<span class="k">class</span> <span class="nc">ReplicatePrediction</span>
+  <span class="nb">attr_reader</span> <span class="ss">:record</span>
+  <span class="nb">attr_writer</span> <span class="ss">:version</span><span class="p">,</span> <span class="ss">:inputs</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    <span class="vi">@record</span> <span class="o">=</span> <span class="n">record</span>
+    <span class="vi">@version</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="vi">@inputs</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">process</span>
+    <span class="n">retrieve_model</span>
+    <span class="n">convert_to_base64</span>
+    <span class="n">send_request</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+
+    <span class="k">def</span> <span class="nf">retrieve_model</span>
+      <span class="c1"># Retrieve the latest version of the model</span>
+      <span class="n">model</span> <span class="o">=</span> <span class="no">Replicate</span><span class="p">.</span><span class="nf">client</span><span class="p">.</span><span class="nf">retrieve_model</span><span class="p">(</span><span class="s2">"tencentarc/gfpgan"</span><span class="p">)</span>
+      <span class="vi">@version</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">latest_version</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">convert_to_base64</span>
+      <span class="c1"># Convert the document to base64 and pass it as img input</span>
+      <span class="n">document</span> <span class="o">=</span> <span class="n">record</span><span class="p">.</span><span class="nf">document</span><span class="p">.</span><span class="nf">download</span>
+      <span class="n">base64_image</span> <span class="o">=</span> <span class="no">Base64</span><span class="p">.</span><span class="nf">strict_encode64</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+      <span class="n">base64_image_url</span> <span class="o">=</span> <span class="s2">"data:image/jpeg;base64,</span><span class="si">#{</span><span class="n">base64_image</span><span class="si">}</span><span class="s2">"</span>
+
+      <span class="vi">@inputs</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="ss">img: </span><span class="n">base64_image_url</span><span class="p">,</span>
+          <span class="ss">version: </span><span class="s2">"v1.4"</span><span class="p">,</span>
+          <span class="ss">scale: </span><span class="mi">2</span>
+        <span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">send_request</span>
+      <span class="c1"># Run prediction and capture the prediction ID and status of prediction</span>
+      <span class="n">prediction</span> <span class="o">=</span> <span class="vi">@version</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="vi">@inputs</span><span class="p">,</span> <span class="s2">"https://</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'NGROK_URL'</span><span class="p">]</span><span class="si">}</span><span class="s2">/replicate/webhook"</span><span class="p">)</span>
+      <span class="n">record</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">prediction_id: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">id</span><span class="p">,</span> <span class="ss">status: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">status</span><span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>To call this service,</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Call the service to raise a prediction request in Replicate</span>
+
+<span class="c1"># These are the column available in Runner model</span>
+
+<span class="c1"># t.string "prediction_id"</span>
+<span class="c1"># t.string "output"</span>
+<span class="c1"># t.string "status"</span>
+
+<span class="c1"># Then an has_one_attached ActiveStorage association to document</span>
+
+<span class="no">ReplicatePrediction</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Runner</span><span class="p">.</span><span class="nf">first</span><span class="p">).</span><span class="nf">process</span></code></pre></figure>
+
+<p>When the record is passed to <code class="highlighter-rouge">ReplicatePrediction</code> service and is executed, the document stored in ActiveStorage will<br />
+be converted to Base64 and the input params will be constructed with the Base64 value in <code class="highlighter-rouge">img</code> key which will then 
+be passed to the <code class="highlighter-rouge">predict</code> method with the webhook URL.</p>
+
+<p>Then the prediction <code class="highlighter-rouge">id</code> and <code class="highlighter-rouge">status</code> will be added to the record.</p>
+
+<p><strong>7) Webhook reponse:</strong></p>
+
+<p>Once the prediction is completed or failed a webhook response will be sent back to the endpoint 
+that we have passed in the <code class="highlighter-rouge">predcit</code> method.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">## config/initializers/replicate.rb</span>
+
+<span class="c1"># This class will handles the webhook sent by Replicate</span>
+<span class="k">class</span> <span class="nc">ReplicateWebhook</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
+    <span class="n">runner</span> <span class="o">=</span> <span class="no">Runner</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">prediction_id: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="k">if</span> <span class="n">runner</span><span class="p">.</span><span class="nf">nil?</span>
+
+    <span class="n">runner</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">status: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">status</span><span class="p">,</span> <span class="ss">output: </span><span class="n">prediction</span><span class="p">.</span><span class="nf">output</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">ReplicateWebhook</code> class which we have set as the webhook adapter will handle finding the record and set 
+the status and output value.</p>
+
+<p>For the model the output value will be a URL, the output value will differ based on the model that we use.</p>
+
+<h3 id="conclusion">Conclusion:</h3>
+
+<p>In recent times, integrating AI into web applications has become significantly easier. 
+It allows us to effortlessly execute diverse machine learning models and obtain the 
+desired outcomes, all without investing countless hours in comprehending algorithms 
+and fine-tuning the models. With Replicate we can discover the most suitable model 
+that aligns with our requirements and seamlessly integrates it into our application 
+in a minimal amount of time.</p>
+
+          </div>
+          <!-- <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Integrate+Replicate+in+Rails+Application%20-%20https://blog.gowsik.info/posts/integrate-replicate-ai-in-rails-application%20by%20@gowsik_ragunath" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.gowsik.info/posts/integrate-replicate-ai-in-rails-application" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div> -->
+
+          <!--  -->
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    You can read some random facts <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V342LMXNEK');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-3ee2c63bbac916f96cd7f90e83ab767f058ead1301444c9966f5156911c8be7f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>

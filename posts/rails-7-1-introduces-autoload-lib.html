@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Gowsik | Rails 7.1 Introduces Autoload Lib and Ignore Sub-Directories with config.autoload_lib(ignore:) Method</title>
+  <meta name="description" content="Autoloading lib directory isn't always straightforward. In this blog post, we'll delve into the autoloading of the lib directory using config.autoload_lib(ignore:).">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Rails 7.1 Introduces Autoload Lib and Ignore Sub-Directories with config.autoload_lib(ignore:) Method">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.gowsik.info/posts/rails-7-1-introduces-autoload-lib">
+  <meta property="og:description" content="Autoloading lib directory isn't always straightforward. In this blog post, we'll delve into the autoloading of the lib directory using config.autoload_lib(ignore:).">
+  <meta property="og:site_name" content="Gowsik">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://blog.gowsik.info/posts/rails-7-1-introduces-autoload-lib">
+  <meta name="twitter:title" content="Rails 7.1 Introduces Autoload Lib and Ignore Sub-Directories with config.autoload_lib(ignore:) Method">
+  <meta name="twitter:description" content="Autoloading lib directory isn't always straightforward. In this blog post, we'll delve into the autoloading of the lib directory using config.autoload_lib(ignore:).">
+
+  
+    <meta property="og:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+    <meta name="twitter:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+  
+
+  <link href="https://blog.gowsik.info/feed.xml" type="application/rss+xml" rel="alternate" title="Gowsik Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-4c760f0ea4166cfd4d40fb83b479f89aab382364c8585ae59b500b5260102afa.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" href="/assets/dark-b9d28dbdfd9e6e202befd4ef315790f4113137f7c4b307fd5df6ae0e46ce6a54.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Gowsik">Gowsik</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="https://gowsik.info" title="About me" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/gowsik_ragunath" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/gowsik-ragunath" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:v.gowsik@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Rails 7.1 Introduces Autoload Lib and Ignore Sub-Directories with config.autoload_lib(ignore:) Method</h1>
+            <p>Autoloading lib directory isn't always straightforward. In this blog post, we'll delve into the autoloading of the lib directory using config.autoload_lib(ignore:).</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    October 16, 2023
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      3 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/rails" title="See all posts with tag 'Rails'">Rails</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>This post is also published in <a href="https://blog.saeloun.com/2023/10/16/rails-7-1-introduces-autoload-lib/">blog.saeloun.com</a>.</p>
+
+<p>There are many new features and enhancements in Rails 7.1, which was recently released. The addition of a new configuration method, <code class="highlighter-rouge">config.autoload_lib(ignore:)</code>, is one of the features.</p>
+
+<p>In Rails, the <code class="highlighter-rouge">lib</code> directory is frequently used for custom modules, utility classes, and other shared pieces of code. But as the framework has evolved, there have been modifications to how Rails handles the <code class="highlighter-rouge">lib</code> directory.</p>
+
+<p>By default, engines or apps do not include the <code class="highlighter-rouge">lib</code> directory in their autoload paths.</p>
+
+<p>This configuration enables us to autoload files in the <code class="highlighter-rouge">lib</code> sub-directory 
+and it allows us to ignore specific folders in the <code class="highlighter-rouge">lib</code> directory as well.</p>
+
+<h3 id="autoload-paths-in-early-versions-of-rails">Autoload Paths in Early Versions of Rails:</h3>
+
+<p>Prior to Rails 3, the <code class="highlighter-rouge">lib</code> directory was autoloaded by default in earlier versions of Rails. When classes or modules are referred to in our application, Rails will automatically search the folders listed in autoloaded paths to locate 
+and load those references.
+As a result, any Ruby files added to the lib directory would be loaded immediately in both development 
+and production environments.</p>
+
+<p>Including <code class="highlighter-rouge">lib</code> in the autoload paths appeared to be convenient, but it was not an ideal solution when apps were operating in production mode. 
+Rails uses eager loading, in which all classes and modules are loaded in advance for better performance. It wasn’t always suitable for <code class="highlighter-rouge">lib</code> files, such as “generators,” meant for development, not automatic loading in a running application.</p>
+
+<p>Starting with Rails 3, the <code class="highlighter-rouge">lib</code> directory was removed from the standard autoload paths. As a result, Rails won’t load classes or modules from the <code class="highlighter-rouge">lib</code> directory by default. Check <a href="https://guides.rubyonrails.org/v3.0/configuring.html#rails-general-configuration">Rails 3.0 general configuration</a> 
+and <a href="https://guides.rubyonrails.org/v2.3/configuring.html">Rails 2.3 configuration</a></p>
+
+<h3 id="before">Before:</h3>
+
+<p>Starting with Rails version 6, we can pass the <code class="highlighter-rouge">lib</code> path to the  <code class="highlighter-rouge">autoload_paths</code> and <code class="highlighter-rouge">eager_load_paths</code> methods. 
+This will load all the classes 
+and modules inside the lib sub-directory.</p>
+
+<p>Under the hood, the autoloader paths uses <a href="https://github.com/fxn/zeitwerk">Zeitwerk</a> which loads the classes 
+and modules in the project on-demand without calling the <code class="highlighter-rouge">require</code>.</p>
+
+<p>The <code class="highlighter-rouge">autoload_paths</code> loads every sub-directory in the <code class="highlighter-rouge">app</code> directory by default except assets, javascript, and views.</p>
+
+<p>We can ignore any sub-directories in the lib directory that do not contain Ruby files by passing their paths to <code class="highlighter-rouge">Rails.autoloaders.main.ignore</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config/application.rb</span>
+
+<span class="n">config</span><span class="p">.</span><span class="nf">autoload_paths</span> <span class="o">&lt;&lt;</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="si">}</span><span class="s2">/lib"</span>
+<span class="n">config</span><span class="p">.</span><span class="nf">eager_load_paths</span> <span class="o">&lt;&lt;</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="si">}</span><span class="s2">/lib"</span>
+
+<span class="sx">%w(assets generators tasks templates)</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">subdir</span><span class="o">|</span>
+  <span class="no">Rails</span><span class="p">.</span><span class="nf">autoloaders</span><span class="p">.</span><span class="nf">main</span><span class="p">.</span><span class="nf">ignore</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="si">}</span><span class="s2">/lib/</span><span class="si">#{</span><span class="n">subdir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span></code></pre></figure>
+
+<h3 id="after">After:</h3>
+
+<p>From Rails 7.1, <code class="highlighter-rouge">config.autoload_lib(ignore:)</code> method adds the <code class="highlighter-rouge">lib</code> directory to <code class="highlighter-rouge">config.autoload_paths</code> and <code class="highlighter-rouge">config.eager_load_paths</code>.</p>
+
+<p>It cannot be used by engines and must be called from <code class="highlighter-rouge">config/application.rb</code> or <code class="highlighter-rouge">config/environments/*.rb</code></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># config/application.rb</span>
+
+  <span class="n">config</span><span class="p">.</span><span class="nf">autoload_lib</span><span class="p">(</span><span class="ss">ignore: </span><span class="sx">%w(assets tasks)</span><span class="p">)</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">config.autoload_lib(ignore:)</code> method also allow us to avoid autoloading or eager loading specific sub-directories inside the <code class="highlighter-rouge">lib</code> directory. We can specify the sub-directory names that need to be ignored using the ignore keyword argument, as shown in the above example. In this case, the <code class="highlighter-rouge">assets</code> and <code class="highlighter-rouge">tasks</code> sub-directories inside the lib directory will not be autoloaded.</p>
+
+          </div>
+          <!-- <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Rails+7.1+Introduces+Autoload+Lib+and+Ignore+Sub-Directories+with+config.autoload_lib(ignore:)+Method%20-%20https://blog.gowsik.info/posts/rails-7-1-introduces-autoload-lib%20by%20@gowsik_ragunath" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.gowsik.info/posts/rails-7-1-introduces-autoload-lib" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div> -->
+
+          <!--  -->
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    You can read some random facts <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V342LMXNEK');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-3ee2c63bbac916f96cd7f90e83ab767f058ead1301444c9966f5156911c8be7f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>

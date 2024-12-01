@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Gowsik | Building a chatbot in Next.js using Vercel AI SDK</title>
+  <meta name="description" content="Using Vercel AI SDK to build an OpenAI chatbot with streamable user interface">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Building a chatbot in Next.js using Vercel AI SDK">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.gowsik.info/posts/building-chatbot-in-nextjs-vercel-ai-sdk">
+  <meta property="og:description" content="Using Vercel AI SDK to build an OpenAI chatbot with streamable user interface">
+  <meta property="og:site_name" content="Gowsik">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://blog.gowsik.info/posts/building-chatbot-in-nextjs-vercel-ai-sdk">
+  <meta name="twitter:title" content="Building a chatbot in Next.js using Vercel AI SDK">
+  <meta name="twitter:description" content="Using Vercel AI SDK to build an OpenAI chatbot with streamable user interface">
+
+  
+    <meta property="og:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+    <meta name="twitter:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+  
+
+  <link href="https://blog.gowsik.info/feed.xml" type="application/rss+xml" rel="alternate" title="Gowsik Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-4c760f0ea4166cfd4d40fb83b479f89aab382364c8585ae59b500b5260102afa.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" href="/assets/dark-b9d28dbdfd9e6e202befd4ef315790f4113137f7c4b307fd5df6ae0e46ce6a54.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Gowsik">Gowsik</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="https://gowsik.info" title="About me" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/gowsik_ragunath" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/gowsik-ragunath" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:v.gowsik@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Building a chatbot in Next.js using Vercel AI SDK</h1>
+            <p>Using Vercel AI SDK to build an OpenAI chatbot with streamable user interface</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    August 5, 2023
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      10 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/js" title="See all posts with tag 'JS'">JS</a>
+    
+      
+      <a href="/tag/openai" title="See all posts with tag 'OpenAI API'">OpenAI API</a>
+    
+      
+      <a href="/tag/ai" title="See all posts with tag 'AI'">AI</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>This post is also published in <a href="https://blog.saeloun.com/2023/07/13/building-chatbot-in-next-js-using-vercel-ai-sdk/">blog.saeloun.com</a>.</p>
+
+<h3 id="what-is-vercel-ai-sdk">What is Vercel AI SDK?</h3>
+
+<p><a href="https://sdk.vercel.ai/">Vercel AI SDK</a> is an open-source library developed by Vercel, which can be used for building AI-powered conversation streaming user interfaces.</p>
+
+<p>With Vercel AI SDK, we can integrate various AI models from <a href="https://openai.com/">OpenAI</a>, <a href="https://huggingface.co/">Hugging Face</a>, <a href="https://python.langchain.com/docs/get_started/introduction.html">LangChain</a>, and <a href="https://www.anthropic.com/">Anthropic</a> into the app to build a conversation stream similar to ChatGPT. Along with support for various LLMs (Language Models), Vercel AI SDK can also be used in frameworks like Next.js, Svelte, and Nuxt.</p>
+
+<p>We can compare models and choose the one that fits our needs in the <a href="https://sdk.vercel.ai/">Vercel AI Playground</a>.</p>
+
+<p><a href="/assets/vercel-ai-sdk/vercel-playground-8fd32c22eda0546166162e64447eb8273e908f8578f2377818df67c2af519333.png">
+  <img src="/assets/vercel-ai-sdk/vercel-playground-8fd32c22eda0546166162e64447eb8273e908f8578f2377818df67c2af519333.png" alt="" class="zooming img-drop-shadow" data-rjs="/assets/vercel-ai-sdk/vercel-playground-8fd32c22eda0546166162e64447eb8273e908f8578f2377818df67c2af519333.png" data-zooming-width="3584" data-zooming-height="1848" />
+</a></p>
+
+<p><em>source: https://sdk.vercel.ai/</em></p>
+
+<h3 id="available-hooks-and-functions">Available Hooks and Functions:</h3>
+
+<p>Before jumping into the implementation, let us understand the lifecycle and hooks provided in the Vercel AI SDK.</p>
+
+<p>Vercel AI SDK come with two hooks <code class="highlighter-rouge">useChat</code> and <code class="highlighter-rouge">useCompletion</code>.</p>
+
+<h4 id="1-usechat">1) useChat:</h4>
+
+<p>The <code class="highlighter-rouge">useChat</code> hook allows us to stream the response from the AI provider. It manages the state of the input and updates the UI with the streamed response messages.</p>
+
+<p>The options that can be passed to <code class="highlighter-rouge">useChat</code> are,</p>
+
+<p>Lifecycle callbacks:</p>
+
+<p>These lifecycle callbacks are optional and will be triggered based on the events.</p>
+
+<ul>
+  <li>onResponse - This optional callback will be called when there is a response from the API endpoint.</li>
+  <li>onFinish - This optional callback will be called when the stream ends.</li>
+  <li>onError - This optional callback will be called when there is an error.</li>
+</ul>
+
+<p>Other options:</p>
+
+<ul>
+  <li>api - By default, the <code class="highlighter-rouge">/api/chat</code> path will be set. We can pass a different API endpoint if we want.</li>
+  <li>id - We can pass a unique ID for the chat. If not provided, a random one will be generated.</li>
+  <li>initialInput -  Initial text that will be pre-filled in the input field.</li>
+  <li>initialMessages - A predefined chat message.</li>
+  <li>headers - Headers that can be passed in this option.</li>
+  <li>body - In addition to the message, we can pass a body object.</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const { messages, input, handleInputChange, handleSubmit } = useChat()
+</code></pre></div></div>
+
+<h4 id="2-usecompletion">2) useCompletion:</h4>
+
+<p>The useCompletion hook handles text completion based on the text input provided in the prompt. It also manages the state of the input and updates the UI with the streamed response messages.</p>
+
+<p>The options that can be passed to useCompletion are:</p>
+
+<p>Lifecycle callbacks:</p>
+
+<p>These lifecycle callbacks are optional and will be triggered based on the events.</p>
+
+<ul>
+  <li>onResponse - This optional callback will be called when there is a response from the API endpoint.</li>
+  <li>onFinish - This optional callback will be called when the stream ends.</li>
+  <li>onError - This optional callback will be called when there is an error.</li>
+</ul>
+
+<p>Other options:</p>
+
+<ul>
+  <li>api -  By default, the <code class="highlighter-rouge">/api/completion</code> path will be set. We can pass a different API endpoint if we want.</li>
+  <li>id - We can pass a unique ID for the completion. If not provided, a random one will be generated.</li>
+  <li>initialInput - Initial text that will be pre-filled in the input field.</li>
+  <li>initialCompletion - A predefined completion message.</li>
+  <li>headers - Headers that can be passed in this option.</li>
+  <li>body - In addition to the message, we can pass a body object.</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  const {
+    completion,
+    input,
+    stop,
+    isLoading,
+    handleInputChange,
+    handleSubmit
+  } = useCompletion({
+    api: '/api/completion'
+  })
+</code></pre></div></div>
+
+<h3 id="aistream">AIStream:</h3>
+
+<p>AIStream is a helper function for creating a readable stream response. This handles AI reponse stream and works with <code class="highlighter-rouge">useChat</code> and <code class="highlighter-rouge">useCompletion</code> functions.</p>
+
+<h3 id="openaistream">OpenAIStream:</h3>
+
+<p>OpenAIStream is a utility function that transforms the response from OpenAI into a readable stream.</p>
+
+<p>There are other AI stream utility functions available, such as HuggingFaceStream, AnthropicStream, and LangChainStream, but for this blog, we will focus on OpenAI.</p>
+
+<p>To obtain a readable stream, we need to pass the response from the <code class="highlighter-rouge">openai.createCompletion</code> or <code class="highlighter-rouge">openai.createChatCompletion</code> functions.</p>
+
+<p>It is compatible with various OpenAI models, including:</p>
+
+<ul>
+  <li>The gpt-4 model, which is optimized for complex tasks and chat functionality.</li>
+  <li>The gpt-3.5 model, which is the most capable model specifically optimized for chat.</li>
+  <li>The text-davinci-003 model, which excels at language tasks with better quality, longer output, and consistent instructions.</li>
+  <li>The text-davinci-002 model, which has similar capabilities to text-davinci-003 but was trained with supervised fine-tuning.</li>
+</ul>
+
+<p>To enable steaming reponse message, it is recommended to use the <code class="highlighter-rouge">openai-edge</code> package, which allows steaming chats and completions response.</p>
+
+<p>Parameters:</p>
+
+<ul>
+  <li>res - This is a required parameter where we pass the response from the <code class="highlighter-rouge">createCompletion</code> or <code class="highlighter-rouge">createChatCompletion</code> function.</li>
+  <li>cb? - This is an optional parameter where we can pass a callback function.</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> const response = await openai.createChatCompletion({
+    model: 'gpt-4',
+    stream: true,
+    messages
+  })
+ 
+  // Transform the response into a readable stream
+  const stream = OpenAIStream(response)
+</code></pre></div></div>
+
+<h3 id="streamingtextresponse">StreamingTextResponse:</h3>
+
+<p><code class="highlighter-rouge">StreamingTextResponse</code>  is a utility class that enables the generation of a readable stream containing text as an HTTP response.</p>
+
+<p>It will automatically set <code class="highlighter-rouge">200</code> status code and content type header to <code class="highlighter-rouge">'text/plain; charset=utf-8'</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  const stream = OpenAIStream(response);
+  // Respond with the stream
+  return new StreamingTextResponse(stream);
+</code></pre></div></div>
+
+<h3 id="implementation">Implementation</h3>
+
+<p>In this post, we will be utilizing the OpenAI model with the help of OpenAIStream, which can be used with both the chat and completion models.</p>
+
+<p>The Vercel AI SDK provides templates for all supported frameworks. For this post, we will be using the <a href="https://github.com/vercel-labs/ai/tree/main/examples/next-openai">Next.js OpenAI</a> starter repository.</p>
+
+<p><strong>1)</strong> Install pnpm package manager</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g pnpm
+</code></pre></div></div>
+
+<p><strong>2)</strong> Create the Next.js app:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pnpm create next-app --example https://github.com/vercel-labs/ai/tree/main/examples/next-openai next-openai-app
+</code></pre></div></div>
+
+<p><strong>3)</strong> Create an <a href="https://platform.openai.com/signup">OpenAI account</a> if you don’t have one already.</p>
+
+<p><strong>4)</strong> In <a href="https://platform.openai.com/account/api-keys">OpenAI Dashboard</a> create API key and copy it.</p>
+
+<p><strong>5)</strong> Set the environment variable by using the export command in the terminal or by creating a new file called .env.local and pasting the API key there</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OPENAI_API_KEY=xxxxxxx
+</code></pre></div></div>
+
+<p><strong>6)</strong> Install dependencies by running <code class="highlighter-rouge">pnpm install</code></p>
+
+<p><strong>7)</strong> Run the development server by running <code class="highlighter-rouge">pnpm dev</code></p>
+
+<p>The template provided already includes a chat interface that supports streaming, similar to ChatGPT. However, to implement the Vercel AI SDK in a Next.js app, we need to add an App route file and a Page file.</p>
+
+<h3 id="chat-model">Chat model:</h3>
+
+<p><strong>Creating an App route:</strong></p>
+
+<p>To implement the chat model, create a folder <code class="highlighter-rouge">api/chat</code> in the <code class="highlighter-rouge">app</code> directory and within the <code class="highlighter-rouge">app/api/chat</code> folder, create a file named <code class="highlighter-rouge">route.ts</code>. This file will contain the route definitions for the chat API.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/api/chat/route.ts</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Configuration</span><span class="p">,</span> <span class="nx">OpenAIApi</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">openai-edge</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OpenAIStream</span><span class="p">,</span> <span class="nx">StreamingTextResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ai</span><span class="dl">'</span>
+
+<span class="c1">// Create an OpenAI API client (that's edge friendly!)</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Configuration</span><span class="p">({</span>
+  <span class="na">apiKey</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">OPENAI_API_KEY</span>
+<span class="p">})</span>
+<span class="kd">const</span> <span class="nx">openai</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OpenAIApi</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+
+<span class="c1">// IMPORTANT! Set the runtime to edge</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">runtime</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">edge</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">POST</span><span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Extract the `prompt` from the body of the request</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">messages</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">req</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+
+  <span class="c1">// Ask OpenAI for a streaming chat completion given the prompt</span>
+  <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">openai</span><span class="p">.</span><span class="nx">createChatCompletion</span><span class="p">({</span>
+    <span class="na">model</span><span class="p">:</span> <span class="dl">'</span><span class="s1">gpt-3.5-turbo</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">stream</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">messages</span><span class="p">:</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="na">message</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">content</span><span class="p">:</span> <span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span>
+      <span class="na">role</span><span class="p">:</span> <span class="nx">message</span><span class="p">.</span><span class="nx">role</span>
+    <span class="p">}))</span>
+  <span class="p">})</span>
+
+  <span class="c1">// Convert the response into a friendly text-stream</span>
+  <span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">OpenAIStream</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+  <span class="c1">// Respond with the stream</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">StreamingTextResponse</span><span class="p">(</span><span class="nx">stream</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the above code, we have used the OpenAI chat model. Using <code class="highlighter-rouge">OpenAIStream</code> and <code class="highlighter-rouge">StreamingTextResponse</code>, we can transform the response into readable stream text in the HTTP response.</p>
+
+<p>We are using <code class="highlighter-rouge">gpt-3.5-turbo</code> model for chat. We are providing the user instruction in the <code class="highlighter-rouge">message</code> parameter which the AI agent will use to generate a response. The message parameter consists of an array of objects, with each object containing the content and role properties.</p>
+
+<p>The <code class="highlighter-rouge">content</code> property holds the text of the message, while the <code class="highlighter-rouge">role</code> property specifies the role of the message, indicating whether it is from the user or the AI agent.</p>
+
+<p><strong>Creating a page route:</strong></p>
+
+<p>In the app directory create a <code class="highlighter-rouge">page.tsx</code> file in the app directory.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/api/chat/page.tsx</span>
+
+<span class="dl">'</span><span class="s1">use client</span><span class="dl">'</span>
+ 
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useCompletion</span><span class="p">,</span> <span class="nx">useChat</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ai/react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Chat</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">messages</span><span class="p">,</span> <span class="nx">input</span><span class="p">,</span> <span class="nx">handleInputChange</span><span class="p">,</span> <span class="nx">handleSubmit</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useChat</span><span class="p">()</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">flex flex-col w-full max-w-md py-24 mx-auto stretch text-black</span><span class="dl">"</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">messages</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">?</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">m</span> <span class="o">=&gt;</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">m</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">whitespace-pre-wrap</span><span class="dl">"</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="nx">m</span><span class="p">.</span><span class="nx">role</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">User: </span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">AI: </span><span class="dl">'</span><span class="p">}</span>
+              <span class="p">{</span><span class="nx">m</span><span class="p">.</span><span class="nx">content</span><span class="p">}</span>
+            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="p">))</span>
+        <span class="p">:</span> <span class="kc">null</span><span class="p">}</span>
+
+      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">handleSubmit</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span>
+          <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl text-black</span><span class="dl">"</span>
+          <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">input</span><span class="p">}</span>
+          <span class="nx">placeholder</span><span class="o">=</span><span class="dl">"</span><span class="s2">Say something...</span><span class="dl">"</span>
+          <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">handleInputChange</span><span class="p">}</span>
+        <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the above code, the <code class="highlighter-rouge">useChat</code> hook will make a request to the default API endpoint <code class="highlighter-rouge">/api/chat</code>, and the response will be set in the <code class="highlighter-rouge">messages</code> state as an array.</p>
+
+<p><a href="/assets/vercel-ai-sdk/use_chat-c3b8977b118e2f85b231419fdfbc311d546add4d77a0f55901b5459d027b2272.png">
+  <img src="/assets/vercel-ai-sdk/use_chat-c3b8977b118e2f85b231419fdfbc311d546add4d77a0f55901b5459d027b2272.png" alt="" class="zooming img-drop-shadow" data-rjs="/assets/vercel-ai-sdk/use_chat-c3b8977b118e2f85b231419fdfbc311d546add4d77a0f55901b5459d027b2272.png" data-zooming-width="3584" data-zooming-height="1838" />
+</a></p>
+
+<p>Here is a sandbox of the chatbot,</p>
+
+<iframe src="https://codesandbox.io/p/sandbox/naughty-glade-rvw3h6?file=%2Fapp/page.tsx%3A25%2C28&amp;embed=1&amp;codemirror=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>
+
+<h3 id="completion-model">Completion model:</h3>
+
+<p>We can use the same chat template and make some changes to the <code class="highlighter-rouge">page.tsx</code> file and create a new endpoint for completion.</p>
+
+<p><strong>Creating an App route:</strong></p>
+
+<p>For the completion model, create a folder <code class="highlighter-rouge">api/completion</code> in the <code class="highlighter-rouge">app</code> directory and within the <code class="highlighter-rouge">app/api/completion</code> folder, create a file named <code class="highlighter-rouge">route.ts</code>. This file will contain the route definitions for the completion API.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/api/completion/route.ts</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Configuration</span><span class="p">,</span> <span class="nx">OpenAIApi</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">openai-edge</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OpenAIStream</span><span class="p">,</span> <span class="nx">StreamingTextResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ai</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Create an OpenAI API client (that's edge friendly!)</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Configuration</span><span class="p">({</span>
+  <span class="na">apiKey</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">OPENAI_API_KEY</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">openai</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OpenAIApi</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+
+<span class="c1">// Set the runtime to edge for best performance</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">runtime</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">edge</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">POST</span><span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">prompt</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">req</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+  <span class="c1">// Ask OpenAI for a streaming completion given the prompt</span>
+  <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">openai</span><span class="p">.</span><span class="nx">createCompletion</span><span class="p">({</span>
+    <span class="na">model</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text-davinci-003</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">stream</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">temperature</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+    <span class="na">prompt</span><span class="p">:</span> <span class="s2">`Convert the given code to ruby.
+              User: </span><span class="p">${</span><span class="nx">prompt</span><span class="p">}</span><span class="s2">
+              Agent:`</span>
+  <span class="p">});</span>
+  <span class="c1">// Convert the response into a friendly text-stream</span>
+  <span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">OpenAIStream</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="c1">// Respond with the stream</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">StreamingTextResponse</span><span class="p">(</span><span class="nx">stream</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the above code, we have used OpenAI completion model, using <code class="highlighter-rouge">OpenAIStream</code> and <code class="highlighter-rouge">StreamingTextResponse</code>, we can transform the repsonse into readable stream text in HTTP response.</p>
+
+<p>We are using <code class="highlighter-rouge">text-davinci-003</code> model for completion. By providing <code class="highlighter-rouge">prompt</code> we can give specific instructions to the AI Agent and guide it to perform a particular task.</p>
+
+<p><strong>Creating a Page route:</strong></p>
+
+<p>In the app directory create a <code class="highlighter-rouge">page.tsx</code> file in the app directory.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="dl">'</span><span class="s1">use client</span><span class="dl">'</span>
+ 
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useCompletion</span><span class="p">,</span> <span class="nx">useChat</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ai/react</span><span class="dl">'</span><span class="p">;</span>
+ 
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ConvertToRuby</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">completion</span><span class="p">,</span> <span class="nx">input</span><span class="p">,</span> <span class="nx">handleInputChange</span><span class="p">,</span> <span class="nx">handleSubmit</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useCompletion</span><span class="p">({</span><span class="na">api</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/api/completion</span><span class="dl">'</span><span class="p">});</span>
+ 
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">mx-auto w-full max-w-md py-24 flex flex-col stretch</span><span class="dl">"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">handleSubmit</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span>
+          <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2 text-black</span><span class="dl">"</span>
+          <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">input</span><span class="p">}</span>
+          <span class="nx">placeholder</span><span class="o">=</span><span class="dl">"</span><span class="s2">Conver to Ruby...</span><span class="dl">"</span>
+          <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">handleInputChange</span><span class="p">}</span>
+        <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">whitespace-pre-wrap my-6</span><span class="dl">"</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">completion</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the above code, the <code class="highlighter-rouge">useCompletion</code> hook makes a request to the API endpoint <code class="highlighter-rouge">/api/completion</code>, and the response is set in the completion state.</p>
+
+<p><a href="/assets/vercel-ai-sdk/use_conversation-42496d9954cd5aed3c8547a6e1e60be7ea33bd075f4b9e06caf525708101689c.png">
+  <img src="/assets/vercel-ai-sdk/use_conversation-42496d9954cd5aed3c8547a6e1e60be7ea33bd075f4b9e06caf525708101689c.png" alt="" class="zooming img-drop-shadow" data-rjs="/assets/vercel-ai-sdk/use_conversation-42496d9954cd5aed3c8547a6e1e60be7ea33bd075f4b9e06caf525708101689c.png" data-zooming-width="1604" data-zooming-height="1764" />
+</a></p>
+
+<p>Here is a sandbox of the conversation model,</p>
+
+<iframe src="https://codesandbox.io/p/sandbox/wandering-monad-zxf4tl?file=%2Fapp/page.tsx%3A25%2C19&amp;embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts" allowfullscreen=""></iframe>
+
+          </div>
+          <!-- <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Building+a+chatbot+in+Next.js+using+Vercel+AI+SDK%20-%20https://blog.gowsik.info/posts/building-chatbot-in-nextjs-vercel-ai-sdk%20by%20@gowsik_ragunath" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.gowsik.info/posts/building-chatbot-in-nextjs-vercel-ai-sdk" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div> -->
+
+          <!--  -->
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    You can read some random facts <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V342LMXNEK');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-3ee2c63bbac916f96cd7f90e83ab767f058ead1301444c9966f5156911c8be7f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>

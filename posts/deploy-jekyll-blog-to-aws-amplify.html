@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Gowsik | Deploy Jekyll blog to AWS Amplify</title>
+  <meta name="description" content="Deploy a static site like a Jekyll blog to AWS Amplify with full fledged CI/CD pipeline and app preview.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Deploy Jekyll blog to AWS Amplify">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.gowsik.info/posts/deploy-jekyll-blog-to-aws-amplify">
+  <meta property="og:description" content="Deploy a static site like a Jekyll blog to AWS Amplify with full fledged CI/CD pipeline and app preview.">
+  <meta property="og:site_name" content="Gowsik">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://blog.gowsik.info/posts/deploy-jekyll-blog-to-aws-amplify">
+  <meta name="twitter:title" content="Deploy Jekyll blog to AWS Amplify">
+  <meta name="twitter:description" content="Deploy a static site like a Jekyll blog to AWS Amplify with full fledged CI/CD pipeline and app preview.">
+
+  
+    <meta property="og:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+    <meta name="twitter:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+  
+
+  <link href="https://blog.gowsik.info/feed.xml" type="application/rss+xml" rel="alternate" title="Gowsik Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-4c760f0ea4166cfd4d40fb83b479f89aab382364c8585ae59b500b5260102afa.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" href="/assets/dark-b9d28dbdfd9e6e202befd4ef315790f4113137f7c4b307fd5df6ae0e46ce6a54.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Gowsik">Gowsik</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="https://gowsik.info" title="About me" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/gowsik_ragunath" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/gowsik-ragunath" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:v.gowsik@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Deploy Jekyll blog to AWS Amplify</h1>
+            <p>Deploy a static site like a Jekyll blog to AWS Amplify with full fledged CI/CD pipeline and app preview.</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 2, 2023
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/jekyll" title="See all posts with tag 'Jekyll'">Jekyll</a>
+    
+      
+      <a href="/tag/devops" title="See all posts with tag 'DevOps'">DevOps</a>
+    
+      
+      <a href="/tag/amplify" title="See all posts with tag 'AWS Amplify'">AWS Amplify</a>
+    
+      
+      <a href="/tag/rubyweekly" title="See all posts with tag 'Ruby Weekly'">Ruby Weekly</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>This post is also published in <a href="https://blog.saeloun.com/2023/05/10/deploy-jekyll-blog-to-aws-amplify/">blog.saeloun.com</a> and featured in <a href="https://rubyweekly.com/issues/653">Ruby Weekly issue #653</a>.</p>
+
+<h2 id="what-is-amplify">What is Amplify?</h2>
+
+<p>AWS Amplify is a full-fledged solution that lets us build, ship, and host full-stack applications on AWS using AWS services.</p>
+
+<p>By using Amplify we can also host static sites and it has a fully managed CI/CD workflow which is super easy to set up it is as simple as connecting the git branch and setting up the domain.</p>
+
+<h2 id="why-we-switched-to-amplify">Why we switched to Amplify?</h2>
+
+<p>Previously we hosted the Saeloun blog on Netlify but the problem is we are a large team and we want to add multiple users as team members to handle the build, and deployment of our blog. As Netlify charges $19/month per member(at the time of writing) we have to spend hundreds of dollars to run this blog.</p>
+
+<p>We then migrated the blog to AWS Amplify because it supports most of the features we use in Netlify like PR preview and CI/CD pipeline. Most of all we can add unlimited users in Amplify and don’t have to pay any additional charges based on user count.</p>
+
+<p>Amplify pricing is based on,</p>
+
+<ul>
+  <li>Build time ($0.01 per minute)</li>
+  <li>Data storage ($0.023 per GB per month)</li>
+  <li>Data tranfer out ($0.15 per GB served)</li>
+  <li>Request count ($0.30 per 1 million requests)</li>
+  <li>Request duration ($0.20 per hour (GB-hour))</li>
+</ul>
+
+<p>Amplify pricing page has examples of calculating the per-month charge <a href="https://aws.amazon.com/amplify/pricing/">ref.</a></p>
+
+<p>After migrating to Amplify we are paying less than $50 per month.</p>
+
+<h2 id="setup-a-jekyll-blog-in-aws-amplify">Setup a Jekyll blog in AWS Amplify:</h2>
+
+<h3 id="1-adding-repository-branch">1) Adding repository branch</h3>
+
+<p>Note: You must have administrator privileges for the git repository to set up the Jekyll blog in AWS Amplify.</p>
+
+<ul>
+  <li>Sign in to the AWS console and navigate to AWS Amplify</li>
+  <li>Click on the <strong>New app</strong> button at the top right and choose Host web app</li>
+  <li>Choose the git provider and click <strong>Continue</strong>, we have the blog repository in GitHub.</li>
+  <li>Choose the repository from the recently updated repositories dropdown.</li>
+  <li>If the repository is not listed then click on the <strong>View GitHub permissions</strong> button and grant Amplify the repository access.</li>
+  <li>Once the repository access is granted you will see the repository listed in the Recently Updated Repositories dropdown</li>
+  <li>Choose the repository and branch then click on <strong>Next</strong>.</li>
+</ul>
+
+<h3 id="2-build-setting">2) Build setting</h3>
+
+<p>At the time of writing the Dockerfile used by AWS Amplify uses only Ruby 2.4 and 2.6 but to deploy our blog we have to install Ruby 3.2.0 and other Linux libraries which we can install by adding commands in preBuild or we can build our own custom Docker image and use it.</p>
+
+<ul>
+  <li>Set an App name by default repository name will be auto-filled</li>
+  <li>To add a command to install ruby and other libraries click on the <strong>Edit</strong> button</li>
+  <li>We added the following lines under preBuild command to install the ruby and Linux libraries,</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="pi">-</span> <span class="s">rvm install 3.2.0</span>
+<span class="pi">-</span> <span class="s">rvm use 3.2.0</span>
+<span class="pi">-</span> <span class="s">yum -y install gsl-devel</span>
+<span class="pi">-</span> <span class="s">bundle install</span></code></pre></figure>
+
+<p>Found this workaround in <a href="https://github.com/aws-amplify/amplify-hosting/issues/2565#issuecomment-1429013859">this GitHub issue</a>.</p>
+
+<p><a href="/assets/aws-amplify/build-cmd-40d0b086270b6ba4a109196aa0a69a49c0130c671d485112f4a0d5ed82af7779.png">
+  <img src="/assets/aws-amplify/build-cmd-40d0b086270b6ba4a109196aa0a69a49c0130c671d485112f4a0d5ed82af7779.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/build-cmd-40d0b086270b6ba4a109196aa0a69a49c0130c671d485112f4a0d5ed82af7779.png" data-zooming-width="1547" data-zooming-height="1116" />
+</a></p>
+
+<h3 id="3-review">3) Review</h3>
+
+<p>Review the repository details and app settings and click on the <strong>Save and Deploy</strong> button.</p>
+
+<p>This will start creating the app in Amplify, we can see the progress of deployment in the dashboard once the deployment is completed we can access the site with the URL provided by Amplify.</p>
+
+<p><a href="/assets/aws-amplify/amplify-dashboard-8b725846e7eaf8157d8fb3b325c95673982fdeb0a3733b5e6703ab4f37d6370c.png">
+  <img src="/assets/aws-amplify/amplify-dashboard-8b725846e7eaf8157d8fb3b325c95673982fdeb0a3733b5e6703ab4f37d6370c.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/amplify-dashboard-8b725846e7eaf8157d8fb3b325c95673982fdeb0a3733b5e6703ab4f37d6370c.png" data-zooming-width="3363" data-zooming-height="576" />
+</a></p>
+
+<h3 id="4-setting-up-a-domain">4) Setting up a domain</h3>
+
+<p>If the site works fine then we can point the static site hosted in Amplify to the custom domain.</p>
+
+<ul>
+  <li>On the side navbar click on <strong>Domain Management</strong> option under App settings.</li>
+</ul>
+
+<p><a href="/assets/aws-amplify/amplify-domain-management-ef51728e4d486200cd3b1892fe877485cdab3f4db8752c7d5c7933e1caac8568.png">
+  <img src="/assets/aws-amplify/amplify-domain-management-ef51728e4d486200cd3b1892fe877485cdab3f4db8752c7d5c7933e1caac8568.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/amplify-domain-management-ef51728e4d486200cd3b1892fe877485cdab3f4db8752c7d5c7933e1caac8568.png" data-zooming-width="524" data-zooming-height="224" />
+</a></p>
+
+<ul>
+  <li>Click the <strong>Add domain</strong> button on the top right.</li>
+  <li>Type the domain URL in the Domain field and click on <strong>Configure domain</strong> button.</li>
+  <li>Exclude root URL to point only subdomain to the Amplify site</li>
+</ul>
+
+<p><a href="/assets/aws-amplify/add-domain-dcb9ea645887a8c87138dc0be48fd93d92f739646130b20f01dd4b1593faa713.png">
+  <img src="/assets/aws-amplify/add-domain-dcb9ea645887a8c87138dc0be48fd93d92f739646130b20f01dd4b1593faa713.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/add-domain-dcb9ea645887a8c87138dc0be48fd93d92f739646130b20f01dd4b1593faa713.png" data-zooming-width="3372" data-zooming-height="952" />
+</a></p>
+
+<ul>
+  <li>Click on <strong>Save</strong>.</li>
+  <li>Amplify will create an SSL certificate.</li>
+  <li>Once the SSL certificate is created, verify domain ownership by configuring a CNAME record with the values provided.</li>
+</ul>
+
+<p><a href="/assets/aws-amplify/ssl-config-4c3b118a0c38b7ff66c3b2a0db97b676354e42dc6686630fce434c0770be3b4e.png">
+  <img src="/assets/aws-amplify/ssl-config-4c3b118a0c38b7ff66c3b2a0db97b676354e42dc6686630fce434c0770be3b4e.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/ssl-config-4c3b118a0c38b7ff66c3b2a0db97b676354e42dc6686630fce434c0770be3b4e.png" data-zooming-width="2694" data-zooming-height="704" />
+</a></p>
+
+<ul>
+  <li>In our case, we added the CNAME record in Namecheap</li>
+</ul>
+
+<p><a href="/assets/aws-amplify/namecheap-cname-14b5b236d798036c6eee7f14087fdc3aee1efebe7b510b673bbeef2b7313819e.png">
+  <img src="/assets/aws-amplify/namecheap-cname-14b5b236d798036c6eee7f14087fdc3aee1efebe7b510b673bbeef2b7313819e.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/namecheap-cname-14b5b236d798036c6eee7f14087fdc3aee1efebe7b510b673bbeef2b7313819e.png" data-zooming-width="2236" data-zooming-height="120" />
+</a></p>
+
+<ul>
+  <li>After adding the verification CNAME, back in AWS amplify click on the Action dropdown</li>
+  <li>Click the <strong>View DNS Record</strong> button</li>
+</ul>
+
+<p><a href="/assets/aws-amplify/custom-domain-4a49543f09f72e0f82beb25555a7727d1cd74191872ad4e5168aa38916d2f357.png">
+  <img src="/assets/aws-amplify/custom-domain-4a49543f09f72e0f82beb25555a7727d1cd74191872ad4e5168aa38916d2f357.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/custom-domain-4a49543f09f72e0f82beb25555a7727d1cd74191872ad4e5168aa38916d2f357.png" data-zooming-width="2956" data-zooming-height="427" />
+</a></p>
+
+<ul>
+  <li>If only a subdomain is added we just need to add a CNAME record in the domain registrar if a root domain is added then we have to add A and CNAME records in the domain registrar</li>
+</ul>
+
+<p><a href="/assets/aws-amplify/dns-record-ba38a823ca855f3d7a509fea3db1a219ed6065015387a23e7007de536ef47f93.png">
+  <img src="/assets/aws-amplify/dns-record-ba38a823ca855f3d7a509fea3db1a219ed6065015387a23e7007de536ef47f93.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/dns-record-ba38a823ca855f3d7a509fea3db1a219ed6065015387a23e7007de536ef47f93.png" data-zooming-width="3549" data-zooming-height="640" />
+</a></p>
+
+<ul>
+  <li>Copy and add the record to the domain registrar</li>
+</ul>
+
+<p><a href="/assets/aws-amplify/blog-cname-record-2b6f06c63bd225b002ce7a72245975633050539bf84cf44d26cbb6a9015b84e0.png">
+  <img src="/assets/aws-amplify/blog-cname-record-2b6f06c63bd225b002ce7a72245975633050539bf84cf44d26cbb6a9015b84e0.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/aws-amplify/blog-cname-record-2b6f06c63bd225b002ce7a72245975633050539bf84cf44d26cbb6a9015b84e0.png" data-zooming-width="2242" data-zooming-height="128" />
+</a></p>
+
+<ul>
+  <li>In a few minutes all the three statuses will have a green check mark</li>
+  <li>Visiting the configuration domain URL and the site hosted in Amplify will load</li>
+</ul>
+
+<h3 id="5-enable-preview">5) Enable preview</h3>
+
+<p>In the side navbar click on the <strong>Previews</strong> option under App settings, then click on <strong>Enable Preview</strong> and Install the GitHub app in the repository.</p>
+
+<p>Now whenever a new PR is raised Amplify will build the app and when the build is successful Amplify bot will post the preview link as a comment on the PR.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Along with Jekyll, Amplify can also host Gatsby and Next.js sites and if you are looking for a way to cut down costs on hosting your blog or other static sites without paying any additional cost based on user count then AWS Amplify will be the best alternative for you.</p>
+
+          </div>
+          <!-- <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Deploy+Jekyll+blog+to+AWS+Amplify%20-%20https://blog.gowsik.info/posts/deploy-jekyll-blog-to-aws-amplify%20by%20@gowsik_ragunath" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.gowsik.info/posts/deploy-jekyll-blog-to-aws-amplify" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div> -->
+
+          <!--  -->
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    You can read some random facts <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V342LMXNEK');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-3ee2c63bbac916f96cd7f90e83ab767f058ead1301444c9966f5156911c8be7f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>

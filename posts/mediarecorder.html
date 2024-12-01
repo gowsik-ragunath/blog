@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Gowsik | Record screen with JavaScript MediaRecorder API</title>
+  <meta name="description" content="Setting up a screen recorder with JavaScript MediaRecorder API">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Record screen with JavaScript MediaRecorder API">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.gowsik.info/posts/mediarecorder">
+  <meta property="og:description" content="Setting up a screen recorder with JavaScript MediaRecorder API">
+  <meta property="og:site_name" content="Gowsik">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://blog.gowsik.info/posts/mediarecorder">
+  <meta name="twitter:title" content="Record screen with JavaScript MediaRecorder API">
+  <meta name="twitter:description" content="Setting up a screen recorder with JavaScript MediaRecorder API">
+
+  
+    <meta property="og:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+    <meta name="twitter:image" content="https://blog.gowsik.info/assets/og-image-39da2ddfef06ae5bdc1b6daa5dcec9e47b2448cbb47e38cce2d4518074bee7ed.jpg">
+  
+
+  <link href="https://blog.gowsik.info/feed.xml" type="application/rss+xml" rel="alternate" title="Gowsik Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-4c760f0ea4166cfd4d40fb83b479f89aab382364c8585ae59b500b5260102afa.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" href="/assets/dark-b9d28dbdfd9e6e202befd4ef315790f4113137f7c4b307fd5df6ae0e46ce6a54.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Gowsik">Gowsik</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="https://gowsik.info" title="About me" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/gowsik_ragunath" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/gowsik-ragunath" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:v.gowsik@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Record screen with JavaScript MediaRecorder API</h1>
+            <p>Setting up a screen recorder with JavaScript MediaRecorder API</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    March 18, 2023
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      3 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/web" title="See all posts with tag 'Web'">Web</a>
+    
+      
+      <a href="/tag/js" title="See all posts with tag 'JS'">JS</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>This post is also published in <a href="https://blog.mallow-tech.com/2021/08/mediarecorder/">blog.mallow-tech.com</a></p>
+
+<p>Recording a screen, camera, and audio stream using a browser has never been easier, with a couple of web APIs we can build a fully functioning MediaRecorder. In this post, we will learn how to implement this MediaRecorder.</p>
+
+<h4 id="so-what-will-we-cover-in-this-post">So what will we cover in this post?</h4>
+
+<ul>
+  <li>What is MediaRecorder?</li>
+  <li>How to get media device permissions from users?</li>
+  <li>Recording a Media</li>
+  <li>Why is Transcoding important?</li>
+</ul>
+
+<h4 id="what-is-mediarecorder">What is MediaRecorder?</h4>
+
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder">MediaRecorder API</a> will provide us the functionality to record a stream, this stream is generated by either media stream(data from the camera, audio device or screen) or HTML media elements(like HTML canvas, audio or video elements).</p>
+
+<p>This MediaRecorder API will provide us with most of the basic recorder abilities like play, pause, resume and stop recording. Even most of the modern web browsers like Chrome, Firefox, and Safari support this API.</p>
+
+<h4 id="how-to-get-media-device-permissions-from-users">How to get media device permissions from users?</h4>
+
+<p>To record media like camera, audio, and screen we first need to get device permission from the user to get the media stream from the requested device. We can get device permission using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices">MediaDevice API</a></p>
+
+<p>Using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia"><code class="highlighter-rouge">MediaDevices.getUserMedia()</code></a> we can request camera and audio device permission.</p>
+
+<p><a href="/assets/mediarecorder/permission-ef496d977b9e755efee6ce18d98078b89d42b2730cf6d0dda2ac634d5add298e.png">
+  <img src="/assets/mediarecorder/permission-ef496d977b9e755efee6ce18d98078b89d42b2730cf6d0dda2ac634d5add298e.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/mediarecorder/permission-ef496d977b9e755efee6ce18d98078b89d42b2730cf6d0dda2ac634d5add298e.png" data-zooming-width="768" data-zooming-height="531" />
+</a></p>
+
+<p>This will prompt users with allow/deny pop-up, if users allow both camera and audio device then a stream object will be returned as a promise, if denied an error will be thrown.</p>
+
+<p>To get screen stream we can replace <code class="highlighter-rouge">navigator.mediaDevices.getUserMedia()</code> with <code class="highlighter-rouge">navigator.mediaDevices.getDisplayMedia()</code> function but at the time of writing audio capturing is only supported in chrome.</p>
+
+<p>To capture audio along with screen stream in non-supported browsers, we can create a new audio stream and add that audio to that screen stream using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStream/addTrack"><code class="highlighter-rouge">MediaStream.addTrack()</code></a>.</p>
+
+<p><a href="/assets/mediarecorder/get-stream-179fb6028cd645a629b08862db9d4e2e43efaa765ac5b8ca810b0a99caeb3433.png">
+  <img src="/assets/mediarecorder/get-stream-179fb6028cd645a629b08862db9d4e2e43efaa765ac5b8ca810b0a99caeb3433.png" alt="permission" class="zooming img-drop-shadow" data-rjs="/assets/mediarecorder/get-stream-179fb6028cd645a629b08862db9d4e2e43efaa765ac5b8ca810b0a99caeb3433.png" data-zooming-width="768" data-zooming-height="680" />
+</a></p>
+
+<h4 id="recording-a-media">Recording a media</h4>
+
+<p>Once the stream is available, we can pass it to MediaRecorder API, this will create an object and we can use it to start, pause, resume and stop recording.</p>
+
+<p><a href="/assets/mediarecorder/record-d4f1487bcff0833a704d0db046fa12db1cc5e272907f7172479f2031bbcbd37e.png">
+  <img src="/assets/mediarecorder/record-d4f1487bcff0833a704d0db046fa12db1cc5e272907f7172479f2031bbcbd37e.png" alt="record" class="zooming img-drop-shadow" data-rjs="/assets/mediarecorder/record-d4f1487bcff0833a704d0db046fa12db1cc5e272907f7172479f2031bbcbd37e.png" data-zooming-width="768" data-zooming-height="679" />
+</a></p>
+
+<p>In the above code, the media stream is passed to the <strong>MediaRecorder</strong> to create an object, along with the stream we have also passed a dictionary with a key called mimeType we need to set this mime type based on browser support. We can do that validation using this <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/isTypeSupported"><code class="highlighter-rouge">MediaRecorder.isTypeSupported</code></a>.</p>
+
+<p>We can start recording by using the MediaRecorder <strong>start()</strong> method, this will start recording our above logic will stop media recorder when we click on the HTML button with id stopBtn this will call the MediaRecorder <strong>stop()</strong> method.</p>
+
+<p>Once the recording is stopped, recorder data will be available in ondataavailable event handler where we can get the raw recorded stream, and download function will be called to let user download the recorded stream.</p>
+
+<p>We can also ask the media recorder to return a chunk of recording in a specific timeframe by passing an integer as an argument to MediaRecorder <strong>start()</strong> method.</p>
+
+<p><code class="highlighter-rouge">mediarecorder.start(15000)</code> will generate a recording chunk every 15 seconds.</p>
+
+<p>Downloaded recording won’t be playable if you don’t have a media player that’s capable of playing WebM files.</p>
+
+<p>If you plan on uploading this media recording and making it available to others then you should consider transcoding it, as some browsers like safari still don’t have full support to play non transcoded WebM at the time of writing some users might not be able to view the playback.</p>
+
+<h4 id="why-is-transcoding-important">Why is Transcoding important?</h4>
+
+<p>Transcoding is a process in which the video is reformatted from one format/codec into a new format/codec. It’s important to make sure the video can be viewable when delivered.</p>
+
+<p>Transcoding a media will cut the storage cut, reduce the bandwidth consumption and ADR(Adaptive bitrate streaming) allow video players to switch between different video sources based on the viewer’s internet connection.</p>
+
+<p>There is a lot of services available for transcoding media, but if you want to do transcoding on your own there is a great suite called <a href="https://www.ffmpeg.org/">FFmpeg</a>, which is a powerful tool that offers more than what a transcoder does.</p>
+
+<p>In <a href="https://github.com/gowsik-ragunath/media_recorder">this github repository</a> you can find an application in which I have integrated this MediaRecorder and uploaded the recording to a rails application.</p>
+
+          </div>
+          <!-- <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Record+screen+with+JavaScript+MediaRecorder+API%20-%20https://blog.gowsik.info/posts/mediarecorder%20by%20@gowsik_ragunath" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.gowsik.info/posts/mediarecorder" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div> -->
+
+          <!--  -->
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    You can read some random facts <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V342LMXNEK');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-3ee2c63bbac916f96cd7f90e83ab767f058ead1301444c9966f5156911c8be7f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>

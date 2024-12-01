@@ -1,20 +1,90 @@
----
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom" xmlns:dc="https://purl.org/dc/elements/1.1/">
   <channel>
-    <title>{{ site.name | xml_escape }}</title>
-    <description>{% if site.description %}{{ site.description | xml_escape }}{% endif %}</description>
-    <link>{{ site.url }}</link>
-    <atom:link href="{{ page.path | absolute_url }}" rel="self" type="application/rss+xml" />
-    {% for post in site.posts limit:10 %}
+    <title>Gowsik</title>
+    <description></description>
+    <link>https://blog.gowsik.info</link>
+    <atom:link href="https://blog.gowsik.info/feed.xml" rel="self" type="application/rss+xml" />
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.description | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | absolute_url }}</link>
-        <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
+        <title>Implementing Passwordless Authentication with WebAuthn in Rails</title>
+        <description>Learn how to set up WebAuthn in Rails for passwordless authentication, offering a secure and seamless login experience using biometric or hardware-based credentials.</description>
+        <pubDate>Tue, 26 Nov 2024 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/passwordless-authentication-using-webauth</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/passwordless-authentication-using-webauth</guid>
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>Rails 7.1 Adds Support for MessagePack as Message Serializer</title>
+        <description>MessagePack is now supported in Rails 7.1, this new serializer enables the generation of smaller payloads and significantly faster serialization and deserialization compared to other serializers.</description>
+        <pubDate>Wed, 15 Nov 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/rails-7-1-message-pack-as-message-serializer</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/rails-7-1-message-pack-as-message-serializer</guid>
+      </item>
+    
+      <item>
+        <title>Rails 7.1 Introduces Autoload Lib and Ignore Sub-Directories with config.autoload_lib(ignore:) Method</title>
+        <description>Autoloading lib directory isn't always straightforward. In this blog post, we'll delve into the autoloading of the lib directory using config.autoload_lib(ignore:).</description>
+        <pubDate>Mon, 16 Oct 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/rails-7-1-introduces-autoload-lib</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/rails-7-1-introduces-autoload-lib</guid>
+      </item>
+    
+      <item>
+        <title>Rails 7.1 Store secret_key_base In Credentials For Local Environment</title>
+        <description>In upcoming Rails 7.1 secret_key_base will be stored in credentials instead of secrets, as secrets has been deprecated in favour of credentials</description>
+        <pubDate>Tue, 15 Aug 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/rails7-1-secret-key-base-in-credentials</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/rails7-1-secret-key-base-in-credentials</guid>
+      </item>
+    
+      <item>
+        <title>Integrate Replicate in Rails Application</title>
+        <description>Integrate Replicate in Rails application and effortlessly run various machine learning models in the cloud using Replicate</description>
+        <pubDate>Sat, 05 Aug 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/integrate-replicate-ai-in-rails-application</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/integrate-replicate-ai-in-rails-application</guid>
+      </item>
+    
+      <item>
+        <title>Building a chatbot in Next.js using Vercel AI SDK</title>
+        <description>Using Vercel AI SDK to build an OpenAI chatbot with streamable user interface</description>
+        <pubDate>Sat, 05 Aug 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/building-chatbot-in-nextjs-vercel-ai-sdk</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/building-chatbot-in-nextjs-vercel-ai-sdk</guid>
+      </item>
+    
+      <item>
+        <title>Extract Sample Rate of an Audio File with Audio Analyzer in Rails 7.1</title>
+        <description>Extract the sample rate of an audio file with ActiveStorage::AudioAnalyzer which will return the bit rate, duration, and sample rate</description>
+        <pubDate>Mon, 29 May 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/extract-sample-rate-of-audio-from-audio-analyzer</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/extract-sample-rate-of-audio-from-audio-analyzer</guid>
+      </item>
+    
+      <item>
+        <title>Integrate OpenAI API in Ruby applications</title>
+        <description>We can integrate OpenAI API in a ruby application by using ruby-openai gem which allows us to build an app with all the ChatGPT</description>
+        <pubDate>Tue, 09 May 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/integrate-openai-api-in-ruby-application</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/integrate-openai-api-in-ruby-application</guid>
+      </item>
+    
+      <item>
+        <title>Deploy Jekyll blog to AWS Amplify</title>
+        <description>Deploy a static site like a Jekyll blog to AWS Amplify with full fledged CI/CD pipeline and app preview.</description>
+        <pubDate>Tue, 02 May 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/deploy-jekyll-blog-to-aws-amplify</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/deploy-jekyll-blog-to-aws-amplify</guid>
+      </item>
+    
+      <item>
+        <title>Restore Postgres DB in fly.io - PG version mismatch issue workaround</title>
+        <description>Restoring Postgres DB a workaround for PG version mismatch issue in fly.io</description>
+        <pubDate>Thu, 23 Mar 2023 00:00:00 +0530</pubDate>
+        <link>https://blog.gowsik.info/posts/fix-pg-version-mismatch-error</link>
+        <guid isPermaLink="true">https://blog.gowsik.info/posts/fix-pg-version-mismatch-error</guid>
+      </item>
+    
   </channel>
 </rss>
