@@ -30,13 +30,6 @@ const palette = palettes[`/posts/${post.slug}`] ?? post.data.palette ?? DEFAULT_
 
   <div class="article-wrap">
 
-    <!-- Palette strip — generated at build time -->
-    <div class="article-palette">
-      <div class="palette-strip">
-        {palette.map(c => <div class="swatch" style={`background:${c}`} />)}
-      </div>
-    </div>
-
     <!-- Meta -->
     <div class="article-meta">
       {post.data.tags.map(tag => (
@@ -56,6 +49,13 @@ const palette = palettes[`/posts/${post.slug}`] ?? post.data.palette ?? DEFAULT_
 
     <!-- Lead / description -->
     <p class="article-lead">{post.data.description}</p>
+
+    <!-- Palette strip — generated at build time -->
+    <div class="article-palette">
+      <div class="palette-strip">
+        {palette.map(c => <div class="swatch" style={`background:${c}`} />)}
+      </div>
+    </div>
 
     <!-- Hero image if any -->
     {post.data.image && (
