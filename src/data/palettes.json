@@ -1,0 +1,58 @@
+{
+  "/posts/building-chatbot-in-nextjs-vercel-ai-sdk": [
+    "rgb(120,144,240)",
+    "rgb(216,216,216)",
+    "rgb(24,24,24)",
+    "rgb(72,72,72)",
+    "rgb(168,168,168)",
+    "rgb(120,120,120)"
+  ],
+  "/posts/deploy-jekyll-blog-to-aws-amplify": [
+    "rgb(144,192,216)",
+    "rgb(72,72,96)",
+    "rgb(48,48,48)",
+    "rgb(216,216,216)",
+    "rgb(168,168,168)",
+    "rgb(120,120,120)"
+  ],
+  "/posts/integrate-openai-api-in-ruby-application": [
+    "rgb(240,240,192)",
+    "rgb(48,72,24)",
+    "rgb(96,120,48)",
+    "rgb(144,168,72)",
+    "rgb(48,72,96)",
+    "rgb(192,216,216)"
+  ],
+  "/posts/integrate-replicate-ai-in-rails-application": [
+    "rgb(240,168,168)",
+    "rgb(48,48,72)",
+    "rgb(24,24,24)",
+    "rgb(96,96,96)",
+    "rgb(168,168,168)",
+    "rgb(216,216,216)"
+  ],
+  "/posts/manually-mount-react-component-using-ujs": [
+    "rgb(216,216,240)",
+    "rgb(48,72,96)",
+    "rgb(168,192,192)",
+    "rgb(144,144,168)",
+    "rgb(96,96,120)",
+    "rgb(216,216,216)"
+  ],
+  "/posts/mediarecorder": [
+    "rgb(96,24,48)",
+    "rgb(48,48,24)",
+    "rgb(72,144,144)",
+    "rgb(144,168,168)",
+    "rgb(72,72,72)",
+    "rgb(120,120,120)"
+  ],
+  "/posts/passwordless-authentication-using-webauth": [
+    "rgb(48,72,144)",
+    "rgb(24,24,24)",
+    "rgb(72,72,72)",
+    "rgb(120,120,120)",
+    "rgb(216,216,216)",
+    "rgb(168,168,168)"
+  ]
+}

@@ -1,16 +1,18 @@
 {
-  "name": "chalk",
+  "name": "blog",
+  "type": "module",
+  "version": "1.0.0",
   "scripts": {
-    "setup": "bin/setup",
-    "local": "bundle exec jekyll serve --drafts",
-    "publish": "bin/deploy"
+    "dev": "node scripts/generate-palettes.mjs && astro dev",
+    "build": "node scripts/generate-palettes.mjs && astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
-    "jquery": "^3.7.1",
-    "npm": "^6.0.1",
-    "retinajs": "^2.1.1",
-    "svgxuse": "^1.2.4",
-    "webfontloader": "^1.6.28",
-    "zooming": "^2.0.0"
+    "astro": "^5.0.0",
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.0.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.0"
   }
 }

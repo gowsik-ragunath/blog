@@ -1,0 +1,74 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import { getTagName, getReadingTime, formatDate } from '@/utils/tags';
+import palettesData from '@/data/palettes.json';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const DEFAULT_PALETTE = ['#2a2a2a','#4a4a4a','#6e6e6e','#959595','#bebebe','#dcdcdc'];
+const palettes = palettesData as Record<string, string[]>;
+const palette = palettes[`/posts/${post.slug}`] ?? post.data.palette ?? DEFAULT_PALETTE;
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  image={post.data.image}
+>
+  <Header isPost={true} />
+
+  <div class="article-wrap">
+
+    <!-- Palette strip — generated at build time -->
+    <div class="article-palette">
+      <div class="palette-strip">
+        {palette.map(c => <div class="swatch" style={`background:${c}`} />)}
+      </div>
+    </div>
+
+    <!-- Meta -->
+    <div class="article-meta">
+      {post.data.tags.map(tag => (
+        <a href={`/tag/${tag}`} class="tag-chip">{getTagName(tag)}</a>
+      ))}
+      <span class="meta-dot">·</span>
+      <span class="meta-text">{formatDate(post.data.pubDate)}</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-text">{getReadingTime(post.body)}</span>
+    </div>
+
+    <!-- Decorative quote -->
+    <div class="article-quote">"</div>
+
+    <!-- Title -->
+    <h1 class="article-title">{post.data.title}</h1>
+
+    <!-- Lead / description -->
+    <p class="article-lead">{post.data.description}</p>
+
+    <!-- Hero image if any -->
+    {post.data.image && (
+      <div class="article-hero">
+        <img src={post.data.image} alt={post.data.title} />
+      </div>
+    )}
+
+    <!-- Article body -->
+    <div class="article-body" id="article-body">
+      <Content />
+    </div>
+
+    <!-- Back button -->
+    <a href="/" class="back-btn">← Back to all posts</a>
+
+  </div>
+</BaseLayout>

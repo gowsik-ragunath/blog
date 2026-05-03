@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import { getTagName, getReadingTime, formatDate } from '@/utils/tags';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  const tags = [...new Set(allPosts.flatMap(p => p.data.tags))];
+  return tags.map(tag => ({
+    params: { tag },
+    props: {
+      posts: allPosts
+        .filter(p => p.data.tags.includes(tag))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const tagName = getTagName(tag);
+const DEFAULT_PALETTE = ['#2a2a2a','#4a4a4a','#6e6e6e','#959595','#bebebe','#dcdcdc'];
+---
+
+<BaseLayout title={tagName} description={`Posts tagged with ${tagName}`}>
+  <Header />
+
+  <div class="tag-page-wrap">
+    <header class="tag-page-header">
+      <p class="tag-page-label">Tag</p>
+      <h1 class="tag-page-title">{tagName}</h1>
+    </header>
+
+    <main class="post-list" style="padding-left:0;padding-right:0">
+      {posts.map(post => (
+        <article class="post-card">
+          <div>
+            <div class="post-card-meta">
+              {post.data.tags.map(t => (
+                <a href={`/tag/${t}`} class="tag-chip">{getTagName(t)}</a>
+              ))}
+              <span class="meta-dot">·</span>
+              <span class="meta-text">{formatDate(post.data.pubDate)}</span>
+              <span class="meta-dot">·</span>
+              <span class="meta-text">{getReadingTime(post.body)}</span>
+            </div>
+            <a href={`/posts/${post.slug}`}>
+              <h2 class="post-card-title">{post.data.title}</h2>
+            </a>
+            <p class="post-card-excerpt">{post.data.description}</p>
+          </div>
+        </article>
+      ))}
+    </main>
+  </div>
+
+  <footer class="home-footer" style="max-width:940px">
+    <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank" rel="noreferrer noopener" class="footer-fun">
+      You can read some random facts here
+    </a>
+  </footer>
+</BaseLayout>

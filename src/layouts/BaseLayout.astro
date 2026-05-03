@@ -1,0 +1,57 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate?: Date;
+  image?: string;
+}
+
+const { title, description, pubDate, image } = Astro.props;
+const siteUrl = 'https://blog.gowsik.info';
+const pageUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/images/og-image.jpg`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gowsik — {title}</title>
+    {description && <meta name="description" content={description} />}
+
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content={pubDate ? 'article' : 'website'} />
+    <meta property="og:url" content={pageUrl} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:site_name" content="Gowsik" />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={pageUrl} />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={ogImage} />
+
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Gowsik blog posts" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V342LMXNEK"></script>
+    <script>
+      // @ts-ignore
+      window.dataLayer = window.dataLayer || [];
+      // @ts-ignore
+      function gtag(){dataLayer.push(arguments);}
+      // @ts-ignore
+      gtag('js', new Date());
+      // @ts-ignore
+      gtag('config', 'G-V342LMXNEK');
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

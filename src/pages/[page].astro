@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import { getTagName, getReadingTime, formatDate } from '@/utils/tags';
+import palettesData from '@/data/palettes.json';
+
+const PAGE_SIZE = 10;
+
+export async function getStaticPaths() {
+  const PAGE_SIZE = 10;
+  const allPosts = (await getCollection('posts')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+  const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
+
+  return Array.from({ length: totalPages - 1 }, (_, i) => {
+    const page = i + 2;
+    return {
+      params: { page: String(page) },
+      props: {
+        posts: allPosts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+        currentPage: page,
+        totalPages,
+      },
+    };
+  });
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+const DEFAULT_PALETTE = ['#2a2a2a','#4a4a4a','#6e6e6e','#959595','#bebebe','#dcdcdc'];
+const palettes = palettesData as Record<string, string[]>;
+---
+
+<BaseLayout title={`Blog — Page ${currentPage}`} description="Writing about Rails, Ruby, DevOps, AI and the web.">
+  <Header />
+
+  <!-- ── Home header ── -->
+  <header class="home-header">
+    <div class="home-header-top">
+      <p class="home-label">Personal Blog</p>
+      <span class="home-quote-mark">"</span>
+    </div>
+    <div class="home-header-bottom">
+      <h1 class="home-title">Gowsik's<br />Blog.</h1>
+      <p class="home-tagline">Writing about Rails, Ruby,<br />DevOps, AI and the web.</p>
+    </div>
+    <div class="home-palette">
+      <div class="palette-strip">
+        {DEFAULT_PALETTE.map(c => <div class="swatch" style={`background:${c}`} />)}
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Post list ── -->
+  <main class="post-list">
+    {posts.map(post => {
+      const palette = palettes[`/posts/${post.slug}`] ?? post.data.palette ?? DEFAULT_PALETTE;
+      return (
+        <article class={`post-card${post.data.image ? ' has-image' : ''}`}>
+          <div>
+            {post.data.image && (
+              <div class="post-card-palette">
+                <div class="palette-strip">
+                  {palette.map(c => <div class="swatch" style={`background:${c}`} />)}
+                </div>
+              </div>
+            )}
+            <div class="post-card-meta">
+              {post.data.tags.map(tag => (
+                <a href={`/tag/${tag}`} class="tag-chip">{getTagName(tag)}</a>
+              ))}
+              <span class="meta-dot">·</span>
+              <span class="meta-text">{formatDate(post.data.pubDate)}</span>
+              <span class="meta-dot">·</span>
+              <span class="meta-text">{getReadingTime(post.body)}</span>
+            </div>
+            <a href={`/posts/${post.slug}`}>
+              <h2 class="post-card-title">{post.data.title}</h2>
+            </a>
+            <p class="post-card-excerpt">{post.data.description}</p>
+          </div>
+          {post.data.image && (
+            <a href={`/posts/${post.slug}`} class="post-card-thumb">
+              <img src={post.data.image} alt={post.data.title} />
+            </a>
+          )}
+        </article>
+      );
+    })}
+  </main>
+
+  <!-- ── Pagination ── -->
+  <nav class="pagination">
+    <a href={currentPage === 2 ? '/' : `/${currentPage - 1}`} class="pagination-btn">← Previous</a>
+    <span class="pagination-info">Page {currentPage} of {totalPages}</span>
+    {currentPage < totalPages && (
+      <a href={`/${currentPage + 1}`} class="pagination-btn">Next →</a>
+    )}
+  </nav>
+
+  <!-- ── Footer ── -->
+  <footer class="home-footer">
+    <a href="https://www.cs.cmu.edu/~bingbin/" target="_blank" rel="noreferrer noopener" class="footer-fun">
+      You can read some random facts here
+    </a>
+  </footer>
+</BaseLayout>
