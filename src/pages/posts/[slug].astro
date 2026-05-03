@@ -7,7 +7,9 @@ import palettesData from '@/data/palettes.json';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+  return posts
+    .filter(post => import.meta.env.DEV || !post.data.draft)
+    .map(post => ({ params: { slug: post.slug }, props: { post } }));
 }
 
 const { post } = Astro.props;

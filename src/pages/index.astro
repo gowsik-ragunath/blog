@@ -6,9 +6,9 @@ import { getTagName, getReadingTime, formatDate } from '@/utils/tags';
 import palettesData from '@/data/palettes.json';
 
 const PAGE_SIZE = 10;
-const allPosts = (await getCollection('posts')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const allPosts = (await getCollection('posts'))
+  .filter(post => import.meta.env.DEV || !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
 const posts = allPosts.slice(0, PAGE_SIZE);
 
